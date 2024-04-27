@@ -26,6 +26,8 @@ const itemSchema = new Schema({
     },
     claimedAmount:{
         type: Number,
-        require:true,
+        require:false,
     }
 })
+
+module.exports = mongoose.model('Item', itemSchema)
