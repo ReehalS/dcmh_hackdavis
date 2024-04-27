@@ -21,7 +21,9 @@ const userSchema = new Schema({
 })
 
 // static signup method
-userSchema.statics.signup = async function(email, password, isAdmin) {
+
+//figure out how to handle admin features
+userSchema.statics.signup = async function(email, password) {
 
     if (!email  || !password ) {
         throw new Error('All fields must be filled out correctly.')
@@ -33,9 +35,7 @@ userSchema.statics.signup = async function(email, password, isAdmin) {
         throw new Error('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.')
     }
     
-    if(!isAdmin){
-        isAdmin=false
-    }
+    isAdmin=false;
 
     const exists = await this.findOne({email})
     if (exists) {
@@ -68,5 +68,34 @@ userSchema.statics.login = async function(email, password) {
     return user
 
 }
+
+userSchema.statics.signupAdmin = async function(email, password) {
+
+    if (!email  || !password ) {
+        throw new Error('All fields must be filled out correctly.')
+    }
+    if(!validator.isEmail(email)){
+        throw new Error('Invalid email address')
+    }
+    if (!validator.isStrongPassword(password)) {
+        throw new Error('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.')
+    }
+    
+    isAdmin=true;
+
+    const exists = await this.findOne({email})
+    if (exists) {
+        throw new Error('User already exists')
+    }
+
+    const salt = await bcrypt.genSalt(10)
+
+    const hashedPassword = await bcrypt.hash(password, salt)
+
+    const user = await this.create({email, password: hashedPassword, isAdmin})
+
+    return user
+}
+
 
 module.exports = mongoose.model('User', userSchema)

@@ -34,4 +34,17 @@ const signupUser = async (req, res) => {
     }
 }
 
-module.exports = { loginUser, signupUser}
+const signupAdmin = async (req, res) => {
+    const {email, password} = req.body
+    try {
+        const user = await User.signupAdmin(email, password)
+
+        const token = createToken(user._id)
+
+        res.status(200).json({email,token})
+    } catch (error) {
+        res.status(400).json({error: error.message})
+    }
+}
+
+module.exports = { loginUser, signupUser, signupAdmin}
