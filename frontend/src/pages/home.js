@@ -1,4 +1,4 @@
-import {BrowserRouter,Routes,Route,Navigate, Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 
 
 const Home = () => {
@@ -8,6 +8,7 @@ const Home = () => {
             <p>
                 <Link to="/addItem" className='homeLink'>Add Item</Link>
                 <Link to="/itemTable" className='homeLink'>View Items</Link>
+                <Link to="/modifyInventory" className='homeLink'>modifyInventory</Link>
             </p>
            
         </div>

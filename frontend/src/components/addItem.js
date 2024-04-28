@@ -13,7 +13,6 @@ const ItemForm = () => {
     const [maxAmount, setMaxAmount] = useState(0)
     const [claimedAmount, setClaimedAmount] = useState(0)
     const [error, setError] = useState(null)
-    const [emptyFields, setEmptyFields] = useState([])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -37,7 +36,6 @@ const ItemForm = () => {
 
         if (!response.ok) {
             setError(json.error)
-            setEmptyFields(json.emptyFields)
         }
         if (response.ok) {
             setTitle('')
@@ -46,7 +44,6 @@ const ItemForm = () => {
             setCurrentAmount(0)
             setMaxAmount(0)
             setError(null)
-            setEmptyFields([])
         }
     }
 

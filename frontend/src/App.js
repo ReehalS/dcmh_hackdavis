@@ -4,6 +4,7 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import ItemForm from './components/addItem';
 import Home from './pages/home';
+import ModifyInventory from './components/modifyInventory';
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 
 import { useAuthContext } from './hooks/useAuthContext';
@@ -41,6 +42,10 @@ function App() {
             <Route
               path="/itemTable"
               element={user ? <Table/> : <Navigate to="/login"/>}
+              />
+            <Route
+              path="/modifyInventory"
+              element={(user && user.isAdmin) ? <ModifyInventory/> : <Navigate to="/login"/>}
               />
           </Routes>
         </div>

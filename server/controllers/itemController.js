@@ -43,12 +43,38 @@ const getItem = async (req, res) => {
 }
 
 const updateItem = async (req, res) => {
-    Item.findByIdAndUpdate(req.params.id, req.body)
-        .then((item) => {
-            res.status(200).json(item);
-        })
-        .catch((err) => res.status(400).json("Error: " + err));
-}
+    const { title, description, category, currentAmount, maxAmount, claimedAmount } = req.body;
+
+    let emptyFields = [];
+
+    if (!title) {
+        emptyFields.push('Item Title');
+    }
+    if (!description) {
+        emptyFields.push('Description');
+    }
+    if (!category) {
+        emptyFields.push('Category');
+    }
+    if (!maxAmount) {
+        emptyFields.push('Maximum Amount');
+    }
+    if (emptyFields.length > 0) {
+        return res.status(400).json({ error: `Please provide a value for the following fields: `, emptyFields });
+    }
+    futureAmount = currentAmount + claimedAmount;
+    if (maxAmount < futureAmount) {
+        return res.status(400).json({ error: "Maximum Amount should be greater than or equal to Current Amount + Claimed Amount" });
+    }
+
+    try {
+        const item = await Item.findByIdAndUpdate(req.params.id, { title, description, category, currentAmount, maxAmount, claimedAmount }, { new: true });
+        res.status(200).json(item);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 
 const deleteItem = async (req, res) => {
     Item.findByIdAndDelete(req.params.id)
