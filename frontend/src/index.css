@@ -3,7 +3,7 @@
 
 /* layout */
 :root {
-  --primary: #75c38e;
+  --primary: #186c32;
   --error: #e7195a;
 }
 
@@ -16,9 +16,9 @@
 .donate-block {
   width: 500px; 
   height: 60px;
-  background-color: rgb(194, 247, 194);
+  background-color: #fff;
   text-align: center;
-  color: black; 
+  color: #22391c; 
   font-size: 40px;
   font-weight: bold; 
   border-radius: 10px;
@@ -32,17 +32,19 @@ img {
 }
 
 h1{
-  font-size: 30px;
+  font-size: 250%;
+  color: #f1f7f0;
+  text-align: center;
 }
 
 h2{
   padding-right: 180px;
   padding-top: 10px;
-  font-size: 180%;
-
+  font-size: 200% ;
+  text-align: center;
 }
 body {
-  background: #75c38e;
+  background: #f1f1f1;
   margin: 0;
   font-family: "Poppins";
 }
@@ -163,7 +165,7 @@ nav a {
 nav button,
 .notLoggedIn,
 .homeLink {
-  background: #ffffff;
+  background: #fff;
   color: var(--primary);
   border: 2px solid var(--primary);
   padding: 6px;
@@ -343,9 +345,10 @@ form.signup, form.login {
 
 .homeItemsTable{
   width: 700px;
+  font-size: 10px;
   margin-top: 4vh;
   padding-top: 1vh;
-  padding: 10px;
+  padding: 5px;
   background-color: #fff;
   
   border-radius: 5px;
@@ -373,9 +376,20 @@ form.signup, form.login {
   margin: 0; 
 }
 
-.alert-container {
-  padding: 20px;
+
+.background-section {
+  background-image: url('../public/banner.webp'); 
+  background-size: cover;
+  background-position: center;
+  padding: 50px 0; 
+  text-align: center; 
+  color: white; 
 }
+
+.custom-header {
+  background-color: #772146; 
+}
+
 
 .menuItem {
   background-color: #75c38e; /* Use your primary color here */

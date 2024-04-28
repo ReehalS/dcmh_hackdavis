@@ -86,6 +86,7 @@ const ItemsTable = () => {
                             onChange={handleCategoryChange}
                             sx={{ width: '250px', marginBottom: '20px' }}
                             className="select-item"
+                            style={{backgroundColor: '#fff'}}
                         >
                         <MenuItem value="all" >All Categories</MenuItem>
                         {categories.map(category => (
@@ -97,7 +98,7 @@ const ItemsTable = () => {
                     </div>
                     
                     
-                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
+                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px', backgroundColor:"#8d9a91" }}>
                         <DataGrid
                             rows={filteredItems}
                             columns={columns}

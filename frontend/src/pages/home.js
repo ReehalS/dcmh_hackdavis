@@ -42,39 +42,42 @@ const Home = () => {
 
   return (
     <div>
-        <div className="donate-block-container">
-        <div className="donate-block">
-            Donate Online
-        </div>
-            </div>
-                <div className="dropdown-container">
-                    <div className="dropdown">
-                        <h1 className="exclamation-icons" style={{color:"black"}}>!!! Urgently Needed Items!!!</h1>
+      <div className="background-section">
+        <h2>Want to help provide low-income and unhoused people with the resources they need?</h2>
+        <a href="https://interland3.donorperfect.net/weblink/weblink.aspx?name=E357416&id=1" target="_blank">
+        <Button size="large" class="donate-block">Donate Online!</Button>
+          </a>
+      </div>
+    
+      <div className="dropdown-container">
+        <div className="dropdown" style={{ backgroundColor: '#22391c', padding: '20px' }}>
+          <h1 className="exclamation-icons"> Urgently Needed Items!</h1>
 
-                    <div style={{ height: 400, width: '100%' }}>
-                    <DataGrid
-                        rows={urgentlyNeededItems}
-                        columns={columns}
-                        initialState={{
-                            pageSize: 7,
-                            page: 0
-                        }}
-                        checkboxSelection={false}
-                        disableSelectionOnClick={true}   
-                        getRowId={(row) => row._id}
-                    />
-                    
-                    </div>
-                </div>
-            </div>
-        <div className="homeItemsContainer">
-            <div className="homeItemsTable">
-                <ItemsTable />
-            </div>
-            
+          <div style={{ height: 400, width: '100%', backgroundColor: "#fff" }}>
+          <DataGrid
+            style={{ width: '100%', maxWidth: '800px'}}
+            rows={urgentlyNeededItems}
+            columns={columns}
+            initialState={{
+              pageSize: 5,
+              page: 0
+            }}
+            rowsPerPageOptions={[5]}
+            checkboxSelection={false}
+            disableSelectionOnClick
+            getRowId={(row) => row._id}
+            headerClassName={{ backgroundColor: '#772146' }}
+          />
+
+          </div>
         </div>
+      </div>
+      <div className="homeItemsContainer">
+        <div className="homeItemsTable" style={{ backgroundColor: '#14390a', padding: '20px' }}>
+          <ItemsTable/>
+         </div>
     </div>
-
+    </div>
   );
 }
 
