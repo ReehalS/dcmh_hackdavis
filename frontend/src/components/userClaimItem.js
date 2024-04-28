@@ -16,6 +16,7 @@ const UserClaimItem = () => {
 
     // Access the state passed from the Link
     useEffect(() => {
+        if(!location.state) return;
         console.log(location.state?.title);
         setSelectedItem(location.state?.title);
         
@@ -103,13 +104,17 @@ const UserClaimItem = () => {
 
     return (
         <div>
+        <div className="homeItemsContainer">
+            <div className="homeItemsTable">
             <h3>Claim Item</h3>
             <form onSubmit={handleSubmit}>
                 <FormControl fullWidth>
                     <InputLabel>Select Item</InputLabel>
                     <Select
+                        label="Item"
                         value={selectedItem}
                         onChange={handleTitleChange}
+                        className="select-item"
                     >
                         <MenuItem value="">Select an item</MenuItem>
                         {items.map(item => (
@@ -145,6 +150,8 @@ const UserClaimItem = () => {
                     Your claim has been submitted successfully!
                 </Alert>
             )}
+        </div>
+        </div>
         </div>
     );
 };

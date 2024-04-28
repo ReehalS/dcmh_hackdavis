@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
-import { Select, MenuItem, Popover, Typography, Button } from '@mui/material'; // Import necessary components
+import { Select, MenuItem, Popover, Typography, Button, FormControl , InputLabel} from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
@@ -78,54 +78,61 @@ const ItemsTable = () => {
     
     
     return (
-        <div>
-            <div className="itemTableHeader">
-                <h1>All Items</h1>
-                <Select
-                    value={selectedCategory ? selectedCategory : 'Categories'}
-                    onChange={handleCategoryChange}
-                    sx={{ width: '250px', marginBottom: '20px' }}
-                >
-                <MenuItem value="">Select an item</MenuItem>
-                <MenuItem value="all" >All Categories</MenuItem>
-                {categories.map(category => (
-                    <MenuItem key={category} value={category}>{category}</MenuItem>
-                ))}
-            </Select>
-    
-            </div>
+        <div className="homeItemsContainer">
+            <div className="homeItemsTable">
+                    <div className="itemTableHeader">
+                        <h1>All Items</h1>
+                        <FormControl>
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                            value={selectedCategory ? selectedCategory : ''}
+                            label="Category"
+                            onChange={handleCategoryChange}
+                            sx={{ width: '250px', marginBottom: '20px' }}
+                            className="select-item"
+                        >
+                        <MenuItem value="all" >All Categories</MenuItem>
+                        {categories.map(category => (
+                            <MenuItem key={category} value={category}>{category}</MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
             
-            
-            <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
-                <DataGrid
-                    rows={filteredItems}
-                    columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection={false}
-                    disableSelectionOnClick
-                    autoHeight
-                    getRowId={(row) => row._id}
-                />
-            </div>    
+                    </div>
+                    
+                    
+                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
+                        <DataGrid
+                            rows={filteredItems}
+                            columns={columns}
+                            pageSize={5}
+                            rowsPerPageOptions={[5]}
+                            checkboxSelection={false}
+                            disableSelectionOnClick
+                            autoHeight
+                            getRowId={(row) => row._id}
+                        />
+                    </div>    
 
-            <Popover
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'center',
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'center',
-                }}
-            >
-                {selectedItem && (
-                    <Typography sx={{ p: 2 }}>{selectedItem.description}</Typography>
-                )}
-            </Popover>
+                    <Popover
+                        open={open}
+                        anchorEl={anchorEl}
+                        onClose={handleClose}
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'center',
+                        }}
+                        transformOrigin={{
+                            vertical: 'top',
+                            horizontal: 'center',
+                        }}
+                    >
+                        {selectedItem && (
+                            <Typography sx={{ p: 2 }}>{selectedItem.description}</Typography>
+                        )}
+                    </Popover>
+                </div>
+            
         </div>
     );
 };

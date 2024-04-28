@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
-import { TextField, Select, MenuItem, Button, FormControl, InputLabel, Typography, Stack} from '@mui/material';
+import { TextField, Select, MenuItem, Button, FormControl, InputLabel, Typography, Stack } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useLocation } from 'react-router-dom';
@@ -122,22 +122,59 @@ const ModifyInventory = () => {
         item.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const handleDelete = async () => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
+
+        // Send DELETE request to delete the item
+        const response = await fetch(`http://localhost:4000/api/item/${selectedItem._id}`, {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${user.token}`
+            }
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            setError(errorData.message);
+            return;
+        }
+
+        // If deletion is successful, reset form fields and clear errors
+        setTitle('');
+        setDescription('');
+        setCategory('');
+        setCurrentAmount(0);
+        setMaxAmount(0);
+        setClaimedAmount(0);
+        setError(null);
+        setSelectedItem(null);
+        setShowAlert(true);
+    };
+
     return (
-        <div className="modify-inventory-container">
-            <Stack direction="row" alignItems="center" spacing={2}> {/* Use Stack to align items horizontally */}
+        <div className="homeItemsContainer">
+            <div className="homeItemsTable">
+            <Stack direction="row" alignItems="center" spacing={2} marginBottom={2}>
                 <TextField
                     label="Search by title"
                     variant="outlined"
                     value={searchTerm}
                     onChange={handleSearchChange}
+                    style={{minWidth:"600px"}}
                 />
                 <Button variant="contained" onClick={handleSearchSubmit}>Search</Button>
             </Stack>
             <FormControl fullWidth>
                 <InputLabel>Select Item</InputLabel>
                 <Select
+                    label="Item"
                     value={selectedItem ? selectedItem.title : ''}
                     onChange={(e) => handleTitleChange(e.target.value)}
+                    className="select-item"
+                    sx={{ width: '700px', marginBottom: '20px' }}
                 >
                     <MenuItem value="">Select an item</MenuItem>
                     {filteredItems.map(item => (
@@ -164,8 +201,10 @@ const ModifyInventory = () => {
                     <FormControl fullWidth>
                         <InputLabel>Category</InputLabel>
                         <Select
+                            label="Category"
                             value={category}
                             onChange={(e) => setCategory(e.target.value)}
+                            className="select-item"
                         >
                             <MenuItem value="">Select a category</MenuItem>
                             <MenuItem value="Food & Supplies">Food & Supplies</MenuItem>
@@ -195,21 +234,26 @@ const ModifyInventory = () => {
                         value={claimedAmount}
                         onChange={(e) => setClaimedAmount(e.target.value)}
                     />
-                    <Button variant="contained" type="submit">Update Item</Button>
-                    {error && (
-                        <div className="error">
-                            {error}
-                        </div>
-                    )}
+                    <Stack direction="row" spacing={70} marginTop={2}>
+                        <Button variant="contained" onClick={handleSubmit}>Update</Button>
+                        <Button variant="contained" onClick={handleDelete} sx={{ bgcolor: 'error.main', color: 'white' }}>Delete</Button>
+                    </Stack>
+                    
+                    
                 </form>
             )}
+            {error && (
+                <div className="error">
+                    {error}
+                </div>
+            )}
             {showAlert && (
-            <Alert severity="success" onClose={() => setShowAlert(false)}>
-                <AlertTitle>Success</AlertTitle>
-                Item updated successfully!
-            </Alert>
-        )}
-
+                <Alert severity="success" onClose={() => setShowAlert(false)}>
+                    <AlertTitle>Success</AlertTitle>
+                    Item updated successfully!
+                </Alert>
+            )}
+        </div>
         </div>
     );
 };

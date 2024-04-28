@@ -44,22 +44,21 @@ const Home = () => {
     <div>
         <div className="donate-block-container">
         <div className="donate-block">
-            Donate Online!
+            Donate Online
         </div>
             </div>
                 <div className="dropdown-container">
                     <div className="dropdown">
-                        <h1 className="exclamation-icons">!!! Urgently Needed Items!!!</h1>
+                        <h1 className="exclamation-icons" style={{color:"black"}}>!!! Urgently Needed Items!!!</h1>
 
                     <div style={{ height: 400, width: '100%' }}>
                     <DataGrid
                         rows={urgentlyNeededItems}
                         columns={columns}
                         initialState={{
-                            pageSize: 5,
+                            pageSize: 7,
                             page: 0
                         }}
-                        rowsPerPageOptions={[5]}
                         checkboxSelection={false}
                         disableSelectionOnClick={true}   
                         getRowId={(row) => row._id}

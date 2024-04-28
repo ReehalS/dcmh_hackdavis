@@ -48,8 +48,8 @@ const Navbar = () => {
       <Toolbar sx={{ background: 'white', paddingLeft: 0, paddingRight: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <img src="DCMH_logo.webp" alt="DCMH Logo" style={{ width: '100px', marginRight: '10px' }} />
-          <Link to={user ? "/home" : "/about"}>
-            <h2>Davis Community Meals and Housing</h2>
+          <Link style={{marginRight:'5px', padding:"0px"}} to={user ? (user.isAdmin ? "/admin" : "/home") : "/login"}>
+            <h2 style={{marginRight:'5px', padding:"0px"}}>Davis Community Meals and Housing</h2>
           </Link>
         </Box>
         <IconButton
@@ -58,7 +58,7 @@ const Navbar = () => {
           color="inherit"
           aria-label="menu"
           onClick={handleMenuOpen}
-          style={{ color: '#186c32' }}
+          style={{ color: 'black' }}
         >
           <MenuIcon />
         </IconButton>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
-import { Select, MenuItem, Popover, Typography, Button, Box, Link } from '@mui/material'; // Import necessary components
+import { Select, MenuItem, Popover, Typography, Button , InputLabel, FormControl} from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
@@ -83,18 +83,22 @@ const AdminItemTable = () => {
     
     return (
         <div>
-            
+            <FormControl>
+            <InputLabel>Category</InputLabel>
             <Select
                 value={selectedCategory}
                 defaultValue="all"
+                label="Category"
                 onChange={handleCategoryChange}
                 sx={{ width: '250px', marginBottom: '20px' }}
+                className="select-item"
             >
                 <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>
                 ))}
             </Select>
+            </FormControl>
     
             <div className="datagrid-container" style={{ width: '100%', maxWidth: '1000px' }}>
                 <DataGrid

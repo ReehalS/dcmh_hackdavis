@@ -35,7 +35,9 @@ const Admin = () => {
     }
 
     return (
-        <div>
+
+        <div className="homeItemsContainer">
+            <div className="homeItemsTable">
             <h1>Update Inventory</h1>
             <Box display="flex" justifyContent="flex-end" alignItems="space-evenly"> 
                 <Link to="/addItem" className='homeLink'>Add Item</Link>
@@ -56,11 +58,15 @@ const Admin = () => {
                 <Button variant="contained" color="success" onClick={submit}>Submit</Button>
             </Box>
             {sent && 
-                <Alert severity="success" onClose={() => {setSent(false)}}>
-                    Low stock items were successfully sent to the mailing list!
-                </Alert>
+                <div className='alert-container'>
+                    <Alert severity="success" onClose={() => {setSent(false)}}>
+                        Low stock items were successfully sent to the mailing list!
+                    </Alert>
+                </div>
+                
             } 
         </div>
+        </div>        
     );
 }
 
