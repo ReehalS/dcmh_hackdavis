@@ -41,7 +41,8 @@ const Admin = () => {
             </Box>
 
             <h2>Running low on supplies?</h2>
-            <p>Set a minium amount for all supplies to have in stock at all times: </p>
+            <p>Send users a notification for highly needed items</p>
+            <p>Items with a number of "Amount Needed" higher than this number will be included in the mailing list: </p>
             <Box display="flex"> 
                 <TextField 
                     id="standard-basic" 
