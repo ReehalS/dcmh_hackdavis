@@ -21,6 +21,7 @@ const Login = () => {
                 onChange={(e)=>setEmail(e.target.value)} 
                 required
                 />
+                
             <label>Password:</label>
             <input 
                 type="password" 

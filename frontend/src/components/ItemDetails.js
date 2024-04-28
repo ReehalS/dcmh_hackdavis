@@ -1,12 +1,9 @@
-import { useState, useHistory} from 'react'
+import { useState} from 'react'
+import { Link } from 'react-router-dom'
 
 const ItemDetails = ({ item }) => {
   const [amountRequired, setAmountRequired] = useState(item.maxAmount - item.currentAmount)
 
-  const navigateToItemForm = (item) => {
-    history.push(`/item-form/`, {item})
-  }
-  
   return (
     <div className="item-details">
       <h4>{item.title}</h4>
@@ -16,7 +13,7 @@ const ItemDetails = ({ item }) => {
       <strong>Amount required : </strong>{amountRequired > 0 ? amountRequired : 0} |
       <strong>Claimed amount : </strong>{item.claimedAmount} 
       </p>
-      <button onClick={() => navigateToItemForm(item)}>Go to Item Form</button>
+      <Link to="/donate">Donate</Link>
     </div>
   )
 }
