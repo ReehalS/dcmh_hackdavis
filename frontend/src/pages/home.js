@@ -61,8 +61,7 @@ const Home = () => {
                         }}
                         rowsPerPageOptions={[5]}
                         checkboxSelection={false}
-                        disableSelectionOnClick
-                        
+                        disableSelectionOnClick={true}   
                         getRowId={(row) => row._id}
                     />
                     

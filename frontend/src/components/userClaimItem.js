@@ -120,8 +120,7 @@ const UserClaimItem = () => {
 
                 {selectedItem && (
                     <div>
-                        <p><strong>Max Amount</strong>: {calculateClaimableItems()} | <strong>Current Amount</strong>: {items.find(item => item.title === selectedItem)?.currentAmount}
-                         | <strong>Claimed Amount</strong>: {items.find(item => item.title === selectedItem)?.claimedAmount}</p>
+                        <p><strong>Max Amount</strong>: {calculateClaimableItems()} | <strong>Current Amount</strong>: {items.find(item => item.title === selectedItem)?.currentAmount} | <strong>Claimed Amount</strong>: {items.find(item => item.title === selectedItem)?.claimedAmount}</p>
                         <p>Description: {items.find(item => item.title === selectedItem)?.description}</p>
                         
                         <p>You can claim at most <strong>{calculateClaimableItems()}</strong> item(s).</p>
@@ -139,8 +138,7 @@ const UserClaimItem = () => {
                         {error && <div className="error">{error}</div>}
                     </div>
                 )}
-            </form>
-            {error && <div className="user-claim-item-error">{error}</div>}
+            </form> 
             {showAlert && (
                 <Alert severity="success" onClose={() => setShowAlert(false)}>
                     <AlertTitle>Success</AlertTitle>

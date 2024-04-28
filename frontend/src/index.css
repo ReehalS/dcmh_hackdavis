@@ -175,6 +175,7 @@ nav button,
   margin-right:10px;
   text-decoration: none;
   max-width: fit-content;
+  max-height: fit-content;
 }
 
 .email {

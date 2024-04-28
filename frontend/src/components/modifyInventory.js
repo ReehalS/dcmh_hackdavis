@@ -32,7 +32,11 @@ const ModifyInventory = () => {
     }, []);
 
     useEffect(() => {
-        setSearchTerm(location.state?.title.toLowerCase().trim());
+        if(location.state){
+            setSearchTerm(location.state?.title.trim());
+        
+        }
+        console.log(location.state);
     }, [location.state]);
 
     // Function to handle selection of an item

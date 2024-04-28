@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
-import { Select, MenuItem, Popover, Typography, Button } from '@mui/material'; // Import necessary components
+import { Select, MenuItem, Popover, Typography, Button, Box, Link } from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
@@ -83,6 +83,7 @@ const AdminItemTable = () => {
     
     return (
         <div>
+            
             <Select
                 value={selectedCategory}
                 defaultValue="all"
@@ -100,13 +101,9 @@ const AdminItemTable = () => {
                     rows={filteredItems}
                     columns={columns}
                     initialState={{
-                    pagination: {
-                        paginationModel: {
-                        pageSize: 20,
-                        },
-                    },
+                        pageSize: 5,
+                        page: 0,
                     }}
-                    pageSizeOptions={[5]}
                     checkboxSelection={false}
                     disableRowSelectionOnClick
                     getRowId={(row) => row._id}
