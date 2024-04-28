@@ -75,30 +75,30 @@ const ItemsTable = () => {
     
     return (
         <div className="homeItemsContainer">
-            <div className="homeItemsTable">
+            <div className="homeItemsTable" >
                     <div className="itemTableHeader">
                         <h1>All Items</h1>
                         <FormControl>
-                        <InputLabel>Category</InputLabel>
-                        <Select
-                            value={selectedCategory ? selectedCategory : ''}
-                            label="Category"
-                            onChange={handleCategoryChange}
-                            sx={{ width: '250px', marginBottom: '20px' }}
-                            className="select-item"
-                            style={{backgroundColor: '#fff'}}
-                        >
-                        <MenuItem value="all" >All Categories</MenuItem>
-                        {categories.map(category => (
-                            <MenuItem key={category} value={category}>{category}</MenuItem>
-                        ))}
-                    </Select>
-                    </FormControl>
+                            <InputLabel>Category</InputLabel>
+                            <Select
+                                value={selectedCategory ? selectedCategory : ''}
+                                label="Category"
+                                onChange={handleCategoryChange}
+                                sx={{ width: '250px', marginBottom: '20px' }}
+                                className="select-item"
+                                style={{backgroundColor: '#fff'}}
+                            >
+                            <MenuItem value="all" >All Categories</MenuItem>
+                            {categories.map(category => (
+                                <MenuItem key={category} value={category}>{category}</MenuItem>
+                            ))}
+                            </Select>
+                        </FormControl>
             
                     </div>
                     
                     
-                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px', backgroundColor:"#8d9a91" }}>
+                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '700px' }}>
                         <DataGrid
                             rows={filteredItems}
                             columns={columns}

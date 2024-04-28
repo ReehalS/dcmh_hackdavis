@@ -58,28 +58,28 @@ const AdminItemTable = () => {
     const filteredItems = showAllCategories ? items : items.filter(item => item.category === selectedCategory);
 
     let columns = [
-        { field: 'title', headerName: 'Title', flex: 1, headerAlign: 'center', align: 'center', renderCell: (params) => (
+        { field: 'title', headerName: 'Title', flex: 2, headerAlign: 'center', align: 'center', renderCell: (params) => (
             <span onClick={(event) => handleTitleClick(event, params.row)}>{params.value}</span>
         )}
     ];
 
     if (showAllCategories) {
         columns.push(
-            { field: 'category', headerName: 'Category', flex: 1, headerAlign: 'center', align: 'center' }
+            { field: 'category', headerName: 'Category', flex: 2, headerAlign: 'center', align: 'center' }
         );
     }
 
     columns.push(
-        { field: 'maxAmount', headerName: 'Max Amount', flex: 1, headerAlign: 'center', align: 'center'},
-        { field: 'currentAmount', headerName: 'Current Amount', flex: 1, headerAlign: 'center', align: 'center'},
-        { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 1, headerAlign: 'center', align: 'center'},
-        { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
+        { field: 'maxAmount', headerName: 'Max Amount', flex: 1.5, headerAlign: 'center', align: 'center'},
+        { field: 'currentAmount', headerName: 'Current Amount', flex: 2, headerAlign: 'center', align: 'center'},
+        { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 2, headerAlign: 'center', align: 'center'},
+        { field: 'claimableItems', headerName: 'Amount Needed', flex: 2, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
 
-        { field: 'update', headerName: 'Update', flex: 1, renderCell: (params) => ( 
-            <Button onClick={() => navigate(`/modifyInventory`, { state: params.row })}>Update</Button>
+        { field: 'update', headerName: 'Update', flex: 1.5, renderCell: (params) => ( 
+            <Button onClick={() => navigate(`/modifyInventory`, { state: params.row })}> Update </Button>
         ), headerAlign: 'center', align: 'center' },
-        { field: 'Recieve', headerName: 'Recieve', flex: 1, renderCell: (params) => (
-            <Button onClick={() => navigate(`/recieveItem`, { state: params.row })}>Record</Button>
+        { field: 'Recieve', headerName: 'Recieve', flex: 1.5, renderCell: (params) => (
+            <Button onClick={() => navigate(`/recieveItem`, { state: params.row })}> Record </Button>
         ), headerAlign: 'center', align: 'center' }
     );
     

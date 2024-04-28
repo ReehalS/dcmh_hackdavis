@@ -44,7 +44,7 @@ const Home = () => {
     <div>
       <div className="background-section">
         <h2>Want to help provide low-income and unhoused people with the resources they need?</h2>
-        <a href="https://interland3.donorperfect.net/weblink/weblink.aspx?name=E357416&id=1" target="_blank">
+        <a href="https://interland3.donorperfect.net/weblink/weblink.aspx?name=E357416&id=1" target="_blank" rel="noreferrer">
         <Button size="large" class="donate-block">Donate Online!</Button>
           </a>
       </div>
@@ -66,7 +66,6 @@ const Home = () => {
             checkboxSelection={false}
             disableSelectionOnClick
             getRowId={(row) => row._id}
-            headerClassName={{ backgroundColor: '#772146' }}
           />
 
           </div>

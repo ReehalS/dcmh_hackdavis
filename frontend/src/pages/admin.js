@@ -42,12 +42,13 @@ const Admin = () => {
 
     return (
 
-        <div className="homeItemsContainer">
-            <div className="homeItemsTable">
-            <h1>Update Inventory</h1>
-            <Box display="flex" justifyContent="flex-end" alignItems="space-evenly"> 
-                <Link to="/addItem" className='homeLink'>Add Item</Link>
-            </Box>
+        <div className="adminItemsContainer">
+            <div className="adminItemsTable">
+            <h1 style={{color:"black"}}>Update Inventory</h1>
+            
+            <Link to="/addItem" className='homeLink'>Add Item</Link>
+            <p>  </p>
+            <p>  </p>
             <AdminItemTable />
             <h2>Running low on supplies?</h2>
             <p>Send users a notification for highly needed items</p>

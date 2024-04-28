@@ -11,6 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f1f7f0;
 }
 
 .donate-block {
@@ -20,8 +21,11 @@
   text-align: center;
   color: #22391c; 
   font-size: 40px;
+  font-family: 'Poppins';
   font-weight: bold; 
   border-radius: 10px;
+  border-color: #fff;
+  cursor: pointer;
 }
 
 
@@ -38,10 +42,10 @@ h1{
 }
 
 h2{
-  padding-right: 180px;
   padding-top: 10px;
   font-size: 200% ;
   text-align: center;
+  align-items: center;
 }
 body {
   background: #f1f1f1;
@@ -102,7 +106,7 @@ header a {
 }
 
 .table-link {
-  color: #1976d2;
+  color: #042547;
   text-decoration: none;
 }
 
@@ -172,11 +176,11 @@ nav button,
   border-radius: 4px;
   font-family: "Poppins";
   cursor: pointer;
-  font-size: 1em;
+  font-size: 2em;
   margin-left: 10px;
   margin-right:10px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 30px;
   text-decoration: none;
   max-width: fit-content;
   max-height: fit-content;
@@ -289,8 +293,10 @@ form.signup, form.login {
 .dropdown-container {
   display: flex;
   justify-content: center;
+  
   margin-top: 20px; 
   margin-bottom: 20px;
+  
   text-align: center;
 }
 
@@ -344,36 +350,33 @@ form.signup, form.login {
 
 
 .homeItemsTable{
-  width: 700px;
-  font-size: 10px;
-  margin-top: 4vh;
   padding-top: 1vh;
-  padding: 5px;
-  background-color: #fff;
-  
+  width: 700px; 
+  padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
-
+  background-color: #fff;
+  font-size: 10px;
 }
 
 .homeItemsContainer{
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
+  margin: 1px;
+  text-align: center;
 }
 
 .itemTableHeader {
   display: flex;
   justify-content: space-evenly;
   align-items: first baseline;
-  margin-bottom: 10px;
-  margin-top: 10px;
+  padding-top: 10px;
 }
 
 
 .itemTableHeader h1 {
   margin: 0; 
+  color: black;
 }
 
 
@@ -381,13 +384,9 @@ form.signup, form.login {
   background-image: url('../public/banner.webp'); 
   background-size: cover;
   background-position: center;
-  padding: 50px 0; 
-  text-align: center; 
+  padding: 50px 50px; 
+  text-align: center;
   color: white; 
-}
-
-.custom-header {
-  background-color: #772146; 
 }
 
 
@@ -400,4 +399,23 @@ form.signup, form.login {
 
 .menuItem:hover {
   background-color: #569c6c; /* Use a slightly darker shade on hover */
+}
+
+
+
+.adminItemsTable{
+  padding-top: 1vh;
+  width: 1000px; 
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 10px;
+}
+
+.adminItemsContainer{
+  display: flex;
+  justify-content: center;
+  margin: 1px;
+  text-align: center;
 }
