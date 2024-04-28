@@ -8,8 +8,7 @@ router.post('/login', loginUser)
 
 router.post('/signup', signupUser)
 
-router.post('/adminLogin', signupAdmin)
+router.post('/sidnupAdmin', signupAdmin)
 
 
 module.exports = router
-
