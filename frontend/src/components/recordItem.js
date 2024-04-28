@@ -74,7 +74,7 @@ const UserRecieveItem = () => {
         const recieveData = { recievedAmount: newRecievedAmount };
 
         // Update the item by sending a PATCH request to the server
-        const response = await fetch(`https://dcmh-hackdavis-backend.vercel.app/api/item/record/${selectedItemObj._id}`, {
+        const response = await fetch(`https://dcmh-hackdavis-backend.vercel.app/api/item/recieve/${selectedItemObj._id}`, {
             method: 'PATCH',
             body: JSON.stringify(recieveData),
             headers: {
