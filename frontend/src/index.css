@@ -419,3 +419,7 @@ form.signup, form.login {
   margin: 1px;
   text-align: center;
 }
+
+.claimItem p{
+  font-size:15px;
+}

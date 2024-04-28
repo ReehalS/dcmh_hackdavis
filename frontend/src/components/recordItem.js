@@ -124,7 +124,7 @@ const UserRecieveItem = () => {
                 </FormControl>
 
                 {selectedItem && (
-                    <div>
+                    <div className="claimItem">
                         
                         <p>We can recieve at most <strong>{calculateRecieveableItems()}</strong> item(s).</p>
 

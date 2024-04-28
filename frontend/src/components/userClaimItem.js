@@ -129,7 +129,7 @@ const UserClaimItem = () => {
                 </FormControl>
 
                 {selectedItem && (
-                    <div>
+                    <div className="claimItem">
                         <p><strong>Max Amount</strong>: {calculateClaimableItems()} | <strong>Current Amount</strong>: {items.find(item => item.title === selectedItem)?.currentAmount} | <strong>Claimed Amount</strong>: {items.find(item => item.title === selectedItem)?.claimedAmount}</p>
                         <p>Description: {items.find(item => item.title === selectedItem)?.description}</p>
                         
