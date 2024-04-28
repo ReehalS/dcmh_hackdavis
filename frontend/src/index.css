@@ -249,7 +249,7 @@ form.signup, form.login {
 }
 
 .user-claim-item-form {
-  /* Add your form styles here */
+
   margin-top: 20px;
 }
 
@@ -260,6 +260,6 @@ form.signup, form.login {
 
 
 .datagrid-container {
-  max-width: 800px; 
+  max-width: 1000px; 
 }
 

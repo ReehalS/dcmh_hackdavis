@@ -5,6 +5,7 @@ import Alert from '@mui/material/Alert';
 import {Link} from 'react-router-dom';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useState } from 'react';
+import AdminItemTable from '../components/adminItemTable';
 
 const Admin = () => {
     const { user } = useAuthContext();
@@ -39,6 +40,7 @@ const Admin = () => {
             <Box display="flex" justifyContent="flex-end"> 
                 <Link to="/addItem" className='homeLink'>Add Item</Link>
             </Box>
+            <AdminItemTable />
 
             <h2>Running low on supplies?</h2>
             <p>Set a minium amount for all supplies to have in stock at all times: </p>

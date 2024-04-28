@@ -70,12 +70,13 @@ const AdminItemTable = () => {
     }
 
     columns.push(
+        { field: 'maxAmount', headerName: 'Max Amount', flex: 1, headerAlign: 'center', align: 'center'},
+        { field: 'currentAmount', headerName: 'Current Amount', flex: 1, headerAlign: 'center', align: 'center'},
+        { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 1, headerAlign: 'center', align: 'center'},
         { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
-        { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
-            <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
-        ), headerAlign: 'center', align: 'center' },
+
         { field: 'update', headerName: 'Update', flex: 1, renderCell: (params) => ( 
-            <Button onClick={() => navigate(`/admin/modifyInventory`, { state: params.row })}>Update</Button>
+            <Button onClick={() => navigate(`/modifyInventory`, { state: params.row })}>Update</Button>
         ), headerAlign: 'center', align: 'center' }
     );
     
@@ -94,15 +95,21 @@ const AdminItemTable = () => {
                 ))}
             </Select>
     
-            <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
+            <div className="datagrid-container" style={{ width: '100%', maxWidth: '1000px' }}>
                 <DataGrid
                     rows={filteredItems}
                     columns={columns}
-                    pageSize={5}
-                    rowsPerPageOptions={[5]}
+                    initialState={{
+                    pagination: {
+                        paginationModel: {
+                        pageSize: 20,
+                        },
+                    },
+                    }}
+                    pageSizeOptions={[5]}
                     checkboxSelection={false}
-                    disableSelectionOnClick
-                    autoHeight
+                    disableRowSelectionOnClick
+
                     getRowId={(row) => row._id}
                 />
             </div>    
