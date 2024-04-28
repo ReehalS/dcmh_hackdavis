@@ -82,11 +82,11 @@ const ItemsTable = () => {
             <div className="itemTableHeader">
                 <h1>All Items</h1>
                 <Select
-                value={selectedCategory}
-                defaultValue="all"
-                onChange={handleCategoryChange}
-                sx={{ width: '250px', marginBottom: '20px' }}
-                >  
+                    value={selectedCategory ? selectedCategory : 'Categories'}
+                    onChange={handleCategoryChange}
+                    sx={{ width: '250px', marginBottom: '20px' }}
+                >
+                <MenuItem value="">Select an item</MenuItem>
                 <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>
