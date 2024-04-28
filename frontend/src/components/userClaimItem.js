@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { useLocation } from 'react-router-dom'; // Import useLocation hook
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Box } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
+import UserBackBtn from "./UserBackBtn";
 
 const UserClaimItem = () => {
     const { user } = useAuthContext();
@@ -106,7 +107,11 @@ const UserClaimItem = () => {
         <div>
         <div className="homeItemsContainer">
             <div className="homeItemsTable">
-            <h3>Claim Item</h3>
+            <Box display="flex" justifyContent="space-between">
+                <h3>Claim Item</h3>
+                <UserBackBtn/>
+            </Box>
+            
             <form onSubmit={handleSubmit}>
                 <FormControl fullWidth>
                     <InputLabel>Select Item</InputLabel>
