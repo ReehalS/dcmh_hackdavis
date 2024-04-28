@@ -235,7 +235,7 @@ const ModifyInventory = () => {
                         value={claimedAmount}
                         onChange={(e) => setClaimedAmount(e.target.value)}
                     />
-                    <Stack direction="row" spacing={70} marginTop={2}>
+                    <Stack direction="row" spacing={7} marginTop={2}>
                         <Button variant="contained" onClick={handleSubmit}>Update</Button>
                         <Button variant="contained" onClick={handleDelete} sx={{ bgcolor: 'error.main', color: 'white' }}>Delete</Button>
                     </Stack>
