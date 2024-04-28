@@ -33,10 +33,10 @@ const Home = () => {
     };
 
   const columns = [
-    { field: 'title', headerName: 'Title', width: 200 },
+    { field: 'title', headerName: 'Title', flex: 1, headerAlign: 'center', align: 'center'},
     { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
     { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
-        <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })}>Donate</Button>
+        <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} variant="contained" color="success">Donate</Button>
     ), headerAlign: 'center', align: 'center' }
   ];
 
@@ -55,7 +55,7 @@ const Home = () => {
 
           <div style={{ height: 400, width: '100%', backgroundColor: "#fff" }}>
           <DataGrid
-            style={{ width: '100%', maxWidth: '800px'}}
+            style={{ width: '100%', maxWidth: '800px', backgroundColor: "#f1f1f1"}}
             rows={urgentlyNeededItems}
             columns={columns}
             initialState={{
@@ -66,6 +66,7 @@ const Home = () => {
             checkboxSelection={false}
             disableSelectionOnClick
             getRowId={(row) => row._id}
+            headerClassName={{ backgroundColor: '#772146' }}
           />
 
           </div>

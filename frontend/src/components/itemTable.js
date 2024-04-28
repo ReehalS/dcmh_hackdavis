@@ -68,37 +68,37 @@ const ItemsTable = () => {
     columns.push(
         { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
         { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
-            <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
+            <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount} variant="contained" color="success">Donate </Button>
         ), headerAlign: 'center', align: 'center' }
     );
     
     
     return (
-        <div className="homeItemsContainer">
-            <div className="homeItemsTable" >
-                    <div className="itemTableHeader">
+        <div className="homeItemsContainer" style={{backgroundColor: "#14390a", borderWidth: "0px"}}>
+            <div className="homeItemsTable" style={{backgroundColor: "#14390a", borderWidth: "0px"}}>
+                    <div className="itemTableHeader" >
                         <h1>All Items</h1>
                         <FormControl>
-                            <InputLabel>Category</InputLabel>
-                            <Select
-                                value={selectedCategory ? selectedCategory : ''}
-                                label="Category"
-                                onChange={handleCategoryChange}
-                                sx={{ width: '250px', marginBottom: '20px' }}
-                                className="select-item"
-                                style={{backgroundColor: '#fff'}}
-                            >
-                            <MenuItem value="all" >All Categories</MenuItem>
-                            {categories.map(category => (
-                                <MenuItem key={category} value={category}>{category}</MenuItem>
-                            ))}
-                            </Select>
-                        </FormControl>
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                            value={selectedCategory ? selectedCategory : ''}
+                            label="Category"
+                            onChange={handleCategoryChange}
+                            sx={{ width: '250px', marginBottom: '20px' }}
+                            className="select-item"
+                            style={{backgroundColor: '#fff'}}
+                        >
+                        <MenuItem value="all" >All Categories</MenuItem>
+                        {categories.map(category => (
+                            <MenuItem key={category} value={category}>{category}</MenuItem>
+                        ))}
+                    </Select>
+                    </FormControl>
             
                     </div>
                     
                     
-                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '700px' }}>
+                    <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px', backgroundColor:"#f1f1f1" }}>
                         <DataGrid
                             rows={filteredItems}
                             columns={columns}

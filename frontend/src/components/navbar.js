@@ -44,12 +44,12 @@ const Navbar = () => {
   };
 
   return (
-    <AppBar position="static" color="primary">
+    <AppBar position="static" color="primary" windowWidth>
       <Toolbar sx={{ background: 'white', paddingLeft: 0, paddingRight: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
           <img src="DCMH_logo.webp" alt="DCMH Logo" style={{ width: '100px', marginRight: '10px' }} />
           <Link style={{marginRight:'5px', padding:"0px"}} to={user ? (user.isAdmin ? "/admin" : "/home") : "/login"}>
-            <h2 style={{marginRight:'5px', padding:"0px"}}>Davis Community Meals and Housing</h2>
+            <h2 className="headerh2" style={{marginRight:'5px', padding:"0px"}}>Davis Community Meals and Housing</h2>
           </Link>
         </Box>
         <IconButton

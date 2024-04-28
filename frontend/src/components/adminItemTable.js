@@ -69,12 +69,18 @@ const AdminItemTable = () => {
         );
     }
 
-    columns.push(
-        { field: 'maxAmount', headerName: 'Max Amount', flex: 1.5, headerAlign: 'center', align: 'center'},
-        { field: 'currentAmount', headerName: 'Current Amount', flex: 2, headerAlign: 'center', align: 'center'},
-        { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 2, headerAlign: 'center', align: 'center'},
-        { field: 'claimableItems', headerName: 'Amount Needed', flex: 2, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
+    const isSmallScreen = window.innerWidth < 768;
 
+    if (!isSmallScreen) {
+        columns.push(
+            { field: 'maxAmount', headerName: 'Max Amount', flex: 1.5, headerAlign: 'center', align: 'center'},
+            { field: 'currentAmount', headerName: 'Current Amount', flex: 2, headerAlign: 'center', align: 'center'},
+            { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 2, headerAlign: 'center', align: 'center'},
+            { field: 'claimableItems', headerName: 'Amount Needed', flex: 2, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' }
+        );
+    }
+
+    columns.push(
         { field: 'update', headerName: 'Update', flex: 1.5, renderCell: (params) => ( 
             <Button onClick={() => navigate(`/modifyInventory`, { state: params.row })}> Update </Button>
         ), headerAlign: 'center', align: 'center' },
@@ -82,7 +88,6 @@ const AdminItemTable = () => {
             <Button onClick={() => navigate(`/recieveItem`, { state: params.row })}> Record </Button>
         ), headerAlign: 'center', align: 'center' }
     );
-    
     
     return (
         <div>
