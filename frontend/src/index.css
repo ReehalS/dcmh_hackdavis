@@ -231,9 +231,21 @@ nav button,
     border-color: #fff;
     cursor: pointer;
   }
-
+  .homeItemsTable{
+    max-width: 380px;
+    padding-top: 1vh;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    font-size: 10px;
+  }
   
-
+  .homeItemsContainer{
+    display: flex;
+    justify-content: center;
+    margin: 1px;
+    text-align: center;
+  }
 }
 
 /* auth forms */
@@ -271,11 +283,12 @@ form.signup, form.login {
 }
 
 .form-container {
+
   max-width: 400px;
   margin: auto;
 }
 
-.form-container h3 {
+.form-container h2 {
   margin-bottom: 20px;
 }
 
@@ -378,6 +391,7 @@ form.signup, form.login {
 }
 
 .homeItemsContainer{
+  
   display: flex;
   justify-content: center;
   margin: 1px;
@@ -439,7 +453,7 @@ form.signup, form.login {
 }
 
 .claimItem p{
-  font-size:15px;
+  font-size:17px;
   justify-content: center;
 }
 

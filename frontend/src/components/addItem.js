@@ -51,7 +51,7 @@ const ItemForm = () => {
         <div className="homeItemsContainer">
             <div className="homeItemsTable">
                 <form className="form-container create" onSubmit={handleSubmit}>
-                    <h3>Add a New Item</h3>
+                    <h2>Add a New Item</h2>
 
                     <TextField
                         label="Item Title"

@@ -108,7 +108,7 @@ const UserClaimItem = () => {
         <div className="homeItemsContainer">
             <div className="homeItemsTable">
             <Box display="flex" justifyContent="space-between">
-                <h3>Claim Item</h3>
+                <h2>Claim Item</h2>
                 <UserBackBtn/>
             </Box>
             

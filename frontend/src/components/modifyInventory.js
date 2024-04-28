@@ -164,7 +164,7 @@ const ModifyInventory = () => {
                     variant="outlined"
                     value={searchTerm}
                     onChange={handleSearchChange}
-                    style={{minWidth:"600px"}}
+                    style={{maxWidth:"700px", minWidth:"300px"}}
                 />
                 <Button variant="contained" onClick={handleSearchSubmit}>Search</Button>
             </Stack>
@@ -175,7 +175,7 @@ const ModifyInventory = () => {
                     value={selectedItem ? selectedItem.title : ''}
                     onChange={(e) => handleTitleChange(e.target.value)}
                     className="select-item"
-                    sx={{ width: '700px', marginBottom: '20px' }}
+                    sx={{ maxWidth: '700px', marginBottom: '20px' }}
                 >
                     <MenuItem value="">Select an item</MenuItem>
                     {filteredItems.map(item => (

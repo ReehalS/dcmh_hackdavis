@@ -104,7 +104,7 @@ const UserRecieveItem = () => {
         <div className="homeItemsContainer">
             <div className="homeItemsTable">
             <Box display="flex" justifyContent="space-between">
-                <h3>Recieve Item</h3>
+                <h2>Recieve Item</h2>
                 <AdminBackBtn />
             </Box>
             <form onSubmit={handleSubmit}>
