@@ -42,4 +42,4 @@ const deleteItem = async (req, res) => {
         .catch((err) => res.status(400).json("Error: " + err));
 }
 
-module.exports = { createItem, getItems, getItem, updateItem, deleteItem};
+module.exports = { createItem, getItems, getItem, updateItem, deleteItem };
