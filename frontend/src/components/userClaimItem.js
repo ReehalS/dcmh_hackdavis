@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
+import { useLocation } from 'react-router-dom'; // Import useLocation hook
 import { FormControl, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-
-
 const UserClaimItem = () => {
     const { user } = useAuthContext();
-
     const [items, setItems] = useState([]); // State to hold fetched items
     const [selectedItem, setSelectedItem] = useState(''); // State to hold selected item
     const [claimAmount, setClaimAmount] = useState(''); // State to hold the claimed amount
     const [error, setError] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
+    const location = useLocation(); // Use useLocation hook to access the location
+
+    // Access the state passed from the Link
+    useEffect(() => {
+        //console.log(location.state);
+        //console.log(location.state?.item.title);
+        setSelectedItem(location.state?.item.title);
+        
+    }, [location.state]);
 
     // Fetch items when component mounts
     useEffect(() => {
@@ -143,11 +150,11 @@ const UserClaimItem = () => {
             </form>
             {error && <div className="user-claim-item-error">{error}</div>}
             {showAlert && (
-            <Alert severity="success" onClose={() => setShowAlert(false)}>
-                <AlertTitle>Success</AlertTitle>
-                Your claim has been submitted successfully!
-            </Alert>
-        )}
+                <Alert severity="success" onClose={() => setShowAlert(false)}>
+                    <AlertTitle>Success</AlertTitle>
+                    Your claim has been submitted successfully!
+                </Alert>
+            )}
         </div>
     );
 };

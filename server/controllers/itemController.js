@@ -39,10 +39,17 @@ const getItems = async (req, res) => {
 
 //get single item
 const getItem = async (req, res) => {
-    Item.findbyId(req.params.id)
-        .then((item) => res.json(item))
-        .catch((err) => res.status(400).json("Error: ") +err); 
-}
+    try {
+        const item = await Item.findById(req.params.id);
+        if (!item) {
+            return res.status(404).json({ message: 'Item not found' });
+        }
+        res.json(item);
+    } catch (err) {
+        res.status(400).json({ message: 'Error fetching item', error: err.message });
+    }
+};
+
 
 
 //update item by Admin

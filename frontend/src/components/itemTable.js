@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Popover, Typography, TableSortLabel, MenuItem, Select } from '@mui/material';
-import { Link as RouterLink } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Popover, Typography, TableSortLabel, MenuItem, Select, Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
 
@@ -14,6 +14,7 @@ const ItemsTable = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const [order, setOrder] = useState('asc');
     const [orderBy, setOrderBy] = useState('');
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const fetchItems = async () => {
@@ -25,7 +26,6 @@ const ItemsTable = () => {
             const json = await response.json();
             if (response.ok) {
                 setItems(json);
-                console.log(json);
             }
         };
 
@@ -56,6 +56,11 @@ const ItemsTable = () => {
         setShowAllCategories(selected === 'all');
     };
 
+    const calculateClaimableItems = (item) => {
+        const remainingAmount = item.maxAmount - (item.currentAmount + item.claimedAmount);
+        return remainingAmount > 0 ? remainingAmount : 0;
+    };
+
     const filteredItems = showAllCategories ? items : items.filter(item => item.category === selectedCategory);
 
     return (
@@ -64,7 +69,7 @@ const ItemsTable = () => {
                 value={selectedCategory}
                 defaultValue="all"
                 onChange={handleCategoryChange}
-                sx={{ width: '250px' }} // Adjust the width as needed
+                sx={{ width: '250px', marginBottom: '20px' }} // Adjust the width and margin as needed
             >
                 <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
@@ -74,10 +79,10 @@ const ItemsTable = () => {
 
 
             <TableContainer component={Paper} className="table-container">
-                <Table stickyHeader>
+                <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>
+                            <TableCell align="center">
                                 <TableSortLabel
                                     active={orderBy === 'title'}
                                     direction={orderBy === 'title' ? order : 'asc'}
@@ -86,27 +91,24 @@ const ItemsTable = () => {
                                     Title
                                 </TableSortLabel>
                             </TableCell>
-                            <TableCell>Category</TableCell>
-                            <TableCell>Max Amount</TableCell>
-                            <TableCell>Current Amount</TableCell>
-                            <TableCell>Claimed Amount</TableCell>
-                            <TableCell>Donation link</TableCell>
+                            <TableCell align="center">Category</TableCell>
+                            <TableCell align="center">Amount Needed</TableCell>
+                            <TableCell align="center">Donation link</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {filteredItems.map(item => (
                             <TableRow key={item._id} className="table-row">
-                                <TableCell>
+                                <TableCell align="center">
                                     <Link href="#" onClick={(e) => handleTitleClick(e, item)}>{item.title}</Link>
                                 </TableCell>
-                                <TableCell>{item.category}</TableCell>
-                                <TableCell>{item.maxAmount}</TableCell>
-                                <TableCell>{item.currentAmount}</TableCell>
-                                <TableCell>{item.claimedAmount}</TableCell>
-                                <TableCell>{((item.currentAmount + item.claimedAmount) < item.maxAmount) ? (
-                                    <Link component={RouterLink} to={`/userClaimItem`} className="table-link">Donate</Link>
+                                <TableCell align="center">{item.category}</TableCell>
+                                <TableCell align="center">{calculateClaimableItems(item)}</TableCell>
+                                
+                                <TableCell align="center">{((item.currentAmount + item.claimedAmount) < item.maxAmount) ? (
+                                    <Button onClick={() => navigate(`/userClaimItem`, { state: { item } })} className="table-link">Donate</Button>  
                                     ) : (
-                                        'Full'
+                                        <Button disabled className="table-link">Full</Button>
                                     )}
                                 </TableCell>
                             </TableRow>
