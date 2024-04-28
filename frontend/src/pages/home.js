@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@mui/material';
+import ItemsTable from '../components/itemTable';
 
 const Home = () => {
   const [urgentlyNeededItems, setUrgentlyNeededItems] = useState([]);
@@ -48,7 +49,7 @@ const Home = () => {
         </div>
             <div className="dropdown-container">
                 <div className="dropdown">
-                    <p className="exclamation-icons">!!! Urgently Needed Items!!!</p>
+                    <h1 className="exclamation-icons">!!! Urgently Needed Items!!!</h1>
 
                 <div style={{ height: 400, width: '100%' }}>
                 <DataGrid
@@ -64,6 +65,9 @@ const Home = () => {
                     
                     getRowId={(row) => row._id}
                 />
+                <div className={"homeItemsTable"}>
+                    <ItemsTable />
+                </div>
                 </div>
             </div>
         </div>

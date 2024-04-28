@@ -3,7 +3,7 @@
 
 /* layout */
 :root {
-  --primary: #1a54ac;
+  --primary: #186c32;
   --error: #e7195a;
 }
 
@@ -26,7 +26,7 @@
 
 
 img {
-  height: 130px;
+  height: 100px;
   padding-top: 5px;
   padding-bottom: 5px;
 }
@@ -153,6 +153,7 @@ input.error {
 nav {
   display: flex;
   align-items: center;
+  height: 5vh;
 }
 
 nav a {
@@ -426,10 +427,7 @@ form.signup, form.login {
 
 /* UserClaimItem.css */
 
-/* UserClaimItem.css */
-
 .user-claim-item-container {
-  /* Add your container styles here */
   margin-top: 20px;
   padding: 20px;
   border: 1px solid #ccc;
@@ -449,4 +447,24 @@ form.signup, form.login {
 
 .datagrid-container {
   max-width: 1000px; 
+}
+
+.homeItemsTable{
+  width: 700px;
+  margin: auto;
+  margin-top: 4vh;
+  padding-top: 1vh;
+  background-color: #fff;
+}
+
+.itemTableHeader {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: first baseline;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+.itemTableHeader h1 {
+  margin: 0; /* Remove default margin */
 }

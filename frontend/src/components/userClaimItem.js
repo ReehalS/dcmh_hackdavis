@@ -101,13 +101,6 @@ const UserClaimItem = () => {
         setError(null);
     };
 
-    const handleAlertClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            setShowAlert(false);
-        }
-
-    };
-
     return (
         <div>
             <h3>Claim Item</h3>

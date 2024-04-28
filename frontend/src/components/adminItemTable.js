@@ -112,7 +112,6 @@ const AdminItemTable = () => {
                     getRowId={(row) => row._id}
                 />
             </div>    
-
             <Popover
                 open={open}
                 anchorEl={anchorEl}

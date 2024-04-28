@@ -79,18 +79,23 @@ const ItemsTable = () => {
     
     return (
         <div>
-            <Select
+            <div className="itemTableHeader">
+                <h1>All Items</h1>
+                <Select
                 value={selectedCategory}
                 defaultValue="all"
                 onChange={handleCategoryChange}
                 sx={{ width: '250px', marginBottom: '20px' }}
-            >
+                >  
                 <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>
                 ))}
             </Select>
     
+            </div>
+            
+            
             <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
                 <DataGrid
                     rows={filteredItems}

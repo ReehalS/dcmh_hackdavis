@@ -1,5 +1,0 @@
-MONGO_URI = mongodb+srv://sunnyreehal:aaGcFXffQrBms6pV@hackdavis2024sub.tl2ob5z.mongodb.net/?retryWrites=true&w=majority&appName=HackDavis2024Sub
-PORT = 4000
-JWT_SECRET = e00d0813415ae14b867d3601d0c671ab8b96ff1b45153436ad65c21926ef6dbd
-EMAILPASS = vtmmcdmgtycllbxg
-EMAIL = kaitlynqvo@gmail.com
