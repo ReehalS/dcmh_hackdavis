@@ -32,6 +32,22 @@ const AdminItemTable = () => {
         fetchItems();
     }, [user]);
 
+    const rowUpdate = async(row) => {
+        // put request 
+
+        const item = { title:row.title, description:row.description, category: row.category, currentAmount: row.currentAmount, maxAmount: row.maxAmount, claimedAmount: row.claimedAmount }
+        
+        const response = await fetch(`http://localhost:4000/api/item/${row._id}`, {
+            method: 'PATCH',
+            body: JSON.stringify(item),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${user.token}`
+            }
+        });
+        console.log(response);
+    }
+
     const handleClose = () => {
         setAnchorEl(null);
         setSelectedItem(null);
@@ -70,8 +86,8 @@ const AdminItemTable = () => {
     }
 
     columns.push(
-        { field: 'maxAmount', headerName: 'Max Amount', flex: 1, headerAlign: 'center', align: 'center'},
-        { field: 'currentAmount', headerName: 'Current Amount', flex: 1, headerAlign: 'center', align: 'center'},
+        { field: 'maxAmount', headerName: 'Max Amount', flex: 1, headerAlign: 'center', align: 'center', editable: true, type: 'number',},
+        { field: 'currentAmount', headerName: 'Current Amount', flex: 1, headerAlign: 'center', align: 'center', editable: true, type: 'number',},
         { field: 'claimedAmount', headerName: 'Claimed Amount', flex: 1, headerAlign: 'center', align: 'center'},
         { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
 
@@ -111,6 +127,10 @@ const AdminItemTable = () => {
                     disableRowSelectionOnClick
 
                     getRowId={(row) => row._id}
+                    processRowUpdate={(updatedRow, originalRow) =>
+                        rowUpdate(updatedRow)
+                      }
+                      onProcessRowUpdateError={() => {console.log()}}
                 />
             </div>    
 

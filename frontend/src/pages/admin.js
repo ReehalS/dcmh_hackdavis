@@ -41,7 +41,6 @@ const Admin = () => {
                 <Link to="/addItem" className='homeLink'>Add Item</Link>
             </Box>
             <AdminItemTable />
-
             <h2>Running low on supplies?</h2>
             <p>Send users a notification for highly needed items</p>
             <p>Items with a number of "Amount Needed" higher than this number will be included in the mailing list: </p>
