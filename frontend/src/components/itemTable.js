@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Link, Popover, Typography, TableSortLabel, MenuItem, Select, Button } from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
+import { Select, MenuItem } from '@mui/material';
+import { Link, Popover, Typography, Button } from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
 
 const ItemsTable = () => {
+    
     const [items, setItems] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
     const [showAllCategories, setShowAllCategories] = useState(true);
@@ -44,12 +47,6 @@ const ItemsTable = () => {
 
     const open = Boolean(anchorEl);
 
-    const handleSortRequest = (property) => {
-        const isAsc = orderBy === property && order === 'asc';
-        setOrder(isAsc ? 'desc' : 'asc');
-        setOrderBy(property);
-    };
-
     const handleCategoryChange = (event) => {
         const selected = event.target.value;
         setSelectedCategory(selected);
@@ -63,76 +60,59 @@ const ItemsTable = () => {
 
     const filteredItems = showAllCategories ? items : items.filter(item => item.category === selectedCategory);
 
+    const columns = [
+        { field: 'title', headerName: 'Title', flex: 1 },
+        { field: 'category', headerName: 'Category', flex: 1 },
+        { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row) },
+        { field: 'action', headerName: 'Action', flex: 1, renderCell: (params) => (
+            <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
+        )}
+    ];
+    
     return (
         <div>
             <Select
                 value={selectedCategory}
                 defaultValue="all"
                 onChange={handleCategoryChange}
-                sx={{ width: '250px', marginBottom: '20px' }} // Adjust the width and margin as needed
+                sx={{ width: '250px', marginBottom: '20px' }}
             >
                 <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>
                 ))}
             </Select>
+    
+            <div className="datagrid-container" style={{ width: '100%', maxWidth: '800px' }}>
+                <DataGrid
+                    rows={filteredItems}
+                    columns={columns}
+                    pageSize={5}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection={false}
+                    disableSelectionOnClick
+                    autoHeight
+                    getRowId={(row) => row._id}
+                />
+            </div>    
 
-
-            <TableContainer component={Paper} className="table-container">
-                <Table>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell align="center">
-                                <TableSortLabel
-                                    active={orderBy === 'title'}
-                                    direction={orderBy === 'title' ? order : 'asc'}
-                                    onClick={() => handleSortRequest('title')}
-                                >
-                                    Title
-                                </TableSortLabel>
-                            </TableCell>
-                            <TableCell align="center">Category</TableCell>
-                            <TableCell align="center">Amount Needed</TableCell>
-                            <TableCell align="center">Donation link</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {filteredItems.map(item => (
-                            <TableRow key={item._id} className="table-row">
-                                <TableCell align="center">
-                                    <Link href="#" onClick={(e) => handleTitleClick(e, item)}>{item.title}</Link>
-                                </TableCell>
-                                <TableCell align="center">{item.category}</TableCell>
-                                <TableCell align="center">{calculateClaimableItems(item)}</TableCell>
-                                
-                                <TableCell align="center">{((item.currentAmount + item.claimedAmount) < item.maxAmount) ? (
-                                    <Button onClick={() => navigate(`/userClaimItem`, { state: { item } })} className="table-link">Donate</Button>  
-                                    ) : (
-                                        <Button disabled className="table-link">Full</Button>
-                                    )}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-                <Popover
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'center',
-                    }}
-                    transformOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
-                >
-                    {selectedItem && (
-                        <Typography sx={{ p: 2 }}>{selectedItem.description}</Typography>
-                    )}
-                </Popover>
-            </TableContainer>
+            <Popover
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                {selectedItem && (
+                    <Typography sx={{ p: 2 }}>{selectedItem.description}</Typography>
+                )}
+            </Popover>
         </div>
     );
 };

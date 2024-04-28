@@ -258,3 +258,8 @@ form.signup, form.login {
   margin-top: 10px;
 }
 
+
+.datagrid-container {
+  max-width: 800px; 
+}
+

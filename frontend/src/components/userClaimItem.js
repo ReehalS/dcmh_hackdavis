@@ -18,7 +18,7 @@ const UserClaimItem = () => {
     useEffect(() => {
         //console.log(location.state);
         //console.log(location.state?.item.title);
-        setSelectedItem(location.state?.item.title);
+        setSelectedItem(location.state?.title);
         
     }, [location.state]);
 
