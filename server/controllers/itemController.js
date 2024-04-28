@@ -1,5 +1,4 @@
 const Item = require('../models/itemModel');
-const express= require('express')
 
 
 const createItem = async (req, res) => {
