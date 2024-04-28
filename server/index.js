@@ -12,11 +12,11 @@ const emailRoutes = require('./routes/email.js')
 
 const app = express()
 app.use(express.json())
-app.use(cors())
+//app.use(cors())
 app.use(bodyParser.json());
 
 
-const allowedOrigins = ['http://localhost:3000', 'https://dcmh-hackdavis.vercel.app/'];
+const allowedOrigins = ['http://localhost:3000', 'https://dcmh-hackdavis.vercel.app'];
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || allowedOrigins.some(allowedOrigin => origin.startsWith(allowedOrigin))) {
