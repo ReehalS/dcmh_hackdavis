@@ -62,10 +62,11 @@ const ItemsTable = () => {
         <div>
             <Select
                 value={selectedCategory}
+                defaultValue="all"
                 onChange={handleCategoryChange}
                 sx={{ width: '250px' }} // Adjust the width as needed
             >
-                <MenuItem value="all">All Categories</MenuItem>
+                <MenuItem value="all" >All Categories</MenuItem>
                 {categories.map(category => (
                     <MenuItem key={category} value={category}>{category}</MenuItem>
                 ))}
@@ -105,7 +106,7 @@ const ItemsTable = () => {
                                 <TableCell>{((item.currentAmount + item.claimedAmount) < item.maxAmount) ? (
                                     <Link component={RouterLink} to={`/userClaimItem`} className="table-link">Donate</Link>
                                     ) : (
-                                        ''
+                                        'Full'
                                     )}
                                 </TableCell>
                             </TableRow>

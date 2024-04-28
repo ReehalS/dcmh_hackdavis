@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
-      <img src="../../public/davis-community-meals-and-housing.jpg" alt="DCMH Logo" />
+        <img src="/Davis-Community-Meals-and-Housing.jpg" alt="DCMH Logo" style={{ width: '9vh', height: '9vh' }} />
         <Link to={user ? "/home" : "/about"}>
         
           <h1>DCMH</h1>

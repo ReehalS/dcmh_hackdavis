@@ -6,7 +6,6 @@ import ItemForm from './components/addItem';
 import Home from './pages/home';
 import ModifyInventory from './components/modifyInventory';
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
-
 import { useAuthContext } from './hooks/useAuthContext';
 import UserClaimItem from './components/userClaimItem';
 
@@ -20,7 +19,10 @@ function App() {
       <Navbar />
         <div className="pages">
           <Routes>
-            
+            <Route
+              path="/"
+              element={<Navigate to="/home"/>}
+              />
             <Route
               path="/home"
               element={user ? <Home/> : <Navigate to="/login"/>}

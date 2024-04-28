@@ -235,3 +235,26 @@ form.signup, form.login {
 .dropdown:focus {
   outline: none;
 }
+
+/* UserClaimItem.css */
+
+/* UserClaimItem.css */
+
+.user-claim-item-container {
+  /* Add your container styles here */
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.user-claim-item-form {
+  /* Add your form styles here */
+  margin-top: 20px;
+}
+
+.user-claim-item-error {
+  color: red;
+  margin-top: 10px;
+}
+

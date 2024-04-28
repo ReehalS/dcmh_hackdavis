@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { TextField, Select, MenuItem, Button, FormControl, InputLabel, Typography } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
 
 const ModifyInventory = () => {
     const { user } = useAuthContext();
@@ -15,6 +18,8 @@ const ModifyInventory = () => {
     const [items, setItems] = useState([]); // State to hold fetched items
     const [selectedItem, setSelectedItem] = useState(null); // State to hold selected item
     const [searchTerm, setSearchTerm] = useState(''); // State to hold search term
+    const [showAlert, setShowAlert] = useState(false);
+
 
     // Fetch items when component mounts
     useEffect(() => {
@@ -27,19 +32,29 @@ const ModifyInventory = () => {
     }, []);
 
     // Function to handle selection of an item
+    // Function to handle selection of an item
     const handleTitleChange = (e) => {
-        const selected = items.find(item => item.title === e.target.value);
+        const searchText = e.target.value.trim(); // Trim whitespace
+        const selected = searchText ? items.find(item => item.title === searchText) : null; // Check if text is not blank
         setSelectedItem(selected);
-        // Load existing values into the form fields
-        if (selected) {
+            if (selected) {
             setTitle(selected.title);
             setDescription(selected.description);
             setCategory(selected.category);
             setCurrentAmount(selected.currentAmount);
             setMaxAmount(selected.maxAmount);
             setClaimedAmount(selected.claimedAmount);
+        } else {
+            // Clear form fields if text is blank
+            setTitle('');
+            setDescription('');
+            setCategory('');
+            setCurrentAmount(0);
+            setMaxAmount(0);
+            setClaimedAmount(0);
         }
     };
+
 
     // Function to handle form submission
     const handleSubmit = async (e) => {
@@ -75,13 +90,40 @@ const ModifyInventory = () => {
             setClaimedAmount(0);
             setError(null);
             setSelectedItem(null);
+            setShowAlert(true);
         }
     };
 
     // Function to handle search term change
     const handleSearchChange = (e) => {
-        setSearchTerm(e.target.value);
+        const searchTerm = e.target.value.toLowerCase();
+        setSearchTerm(searchTerm);
+        // Filter items based on search term
+        const filteredItem = items.find(item =>
+            item.title.toLowerCase().includes(searchTerm)
+        );
+        
+        // Populate the selected item if found
+        if (filteredItem) {
+            setSelectedItem(filteredItem);
+            setTitle(filteredItem.title);
+            setDescription(filteredItem.description);
+            setCategory(filteredItem.category);
+            setCurrentAmount(filteredItem.currentAmount);
+            setMaxAmount(filteredItem.maxAmount);
+            setClaimedAmount(filteredItem.claimedAmount);
+        } else {
+            // Clear selected item and form fields if not found
+            setSelectedItem(null);
+            setTitle('');
+            setDescription('');
+            setCategory('');
+            setCurrentAmount(0);
+            setMaxAmount(0);
+            setClaimedAmount(0);
+        }
     };
+    
 
     // Filter items based on search term
     const filteredItems = items.filter(item =>
@@ -173,6 +215,13 @@ const ModifyInventory = () => {
                     )}
                 </form>
             )}
+            {showAlert && (
+            <Alert severity="success" onClose={() => setShowAlert(false)}>
+                <AlertTitle>Success</AlertTitle>
+                Item updated successfully!
+            </Alert>
+        )}
+
         </div>
     );
 };
