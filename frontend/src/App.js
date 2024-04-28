@@ -8,6 +8,7 @@ import ModifyInventory from './components/modifyInventory';
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 
 import { useAuthContext } from './hooks/useAuthContext';
+import UserClaimItem from './components/userClaimItem';
 
 
 function App() {
@@ -46,6 +47,10 @@ function App() {
             <Route
               path="/modifyInventory"
               element={(user && user.isAdmin) ? <ModifyInventory/> : <Navigate to="/login"/>}
+              />
+            <Route
+              path="/userClaimItem"
+              element={user ? <UserClaimItem/> : <Navigate to="/login"/>}
               />
           </Routes>
         </div>

@@ -9,6 +9,7 @@ const Home = () => {
                 <Link to="/addItem" className='homeLink'>Add Item</Link>
                 <Link to="/itemTable" className='homeLink'>View Items</Link>
                 <Link to="/modifyInventory" className='homeLink'>modifyInventory</Link>
+                <Link to="/userClaimItem" className='homeLink'>Claim Item</Link>
             </p>
            
         </div>

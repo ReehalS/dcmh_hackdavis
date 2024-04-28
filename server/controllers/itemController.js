@@ -62,7 +62,7 @@ const updateItem = async (req, res) => {
     if (emptyFields.length > 0) {
         return res.status(400).json({ error: `Please provide a value for the following fields: `, emptyFields });
     }
-    futureAmount = currentAmount + claimedAmount;
+    futureAmount = parseInt(currentAmount) + parseInt(claimedAmount)
     if (maxAmount < futureAmount) {
         return res.status(400).json({ error: "Maximum Amount should be greater than or equal to Current Amount + Claimed Amount" });
     }
@@ -82,4 +82,38 @@ const deleteItem = async (req, res) => {
         .catch((err) => res.status(400).json("Error: " + err));
 }
 
-module.exports = { createItem, getItems, getItem, updateItem, deleteItem };
+const claimItem = async (req, res) => {
+  const { claimedAmount } = req.body;
+
+  if (claimedAmount <= 0) {
+      return res.status(400).json({ error: 'Please enter a valid claim amount' });
+  }
+
+  try {
+      const item = await Item.findById(req.params.id);
+
+      if (!item) {
+          return res.status(404).json({ error: 'Item not found' });
+      }
+
+      // Calculate future amount after claiming
+      const futureAmount = parseInt(item.currentAmount) + parseInt(claimedAmount);
+
+      if (futureAmount > item.maxAmount) {
+          return res.status(400).json({ error: 'Claimed amount exceeds maximum amount' });
+      }
+
+      // Update claimedAmount
+      const newClaimedAmount = parseInt(item.claimedAmount) + parseInt(claimedAmount);
+
+      // Update item
+      const updatedItem = await Item.findByIdAndUpdate(req.params.id, { claimedAmount: newClaimedAmount }, { new: true });
+
+      res.status(200).json(updatedItem);
+  } catch (error) {
+      res.status(400).json({ error: error.message });
+  }
+};
+
+
+module.exports = { createItem, getItems, getItem, updateItem, deleteItem, claimItem};

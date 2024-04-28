@@ -74,6 +74,7 @@ const ModifyInventory = () => {
             setMaxAmount(0);
             setClaimedAmount(0);
             setError(null);
+            setSelectedItem(null);
         }
         
     };
