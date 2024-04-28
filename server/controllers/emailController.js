@@ -65,4 +65,4 @@ const sendLowNotif = async (req, res) => {
         });
 };
 
-module.exports = { sendMail, sendNotif };
+module.exports = { sendMail, sendLowNotif };
