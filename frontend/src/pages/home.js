@@ -55,11 +55,8 @@ const Home = () => {
                     rows={urgentlyNeededItems}
                     columns={columns}
                     initialState={{
-                    pagination: {
-                        paginationModel: {
-                        pageSize: 20,
-                        },
-                    },
+                        pageSize: 5,
+                        page: 0
                     }}
                     rowsPerPageOptions={[5]}
                     checkboxSelection={false}
