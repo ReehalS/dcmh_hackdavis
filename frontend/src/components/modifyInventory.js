@@ -4,6 +4,7 @@ import { TextField, Select, MenuItem, Button, FormControl, InputLabel, Typograph
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import { useLocation } from 'react-router-dom';
+import AdminBackBtn from "./AdminBackBtn";
 
 const ModifyInventory = () => {
     const { user } = useAuthContext();
@@ -248,10 +249,13 @@ const ModifyInventory = () => {
                 </div>
             )}
             {showAlert && (
-                <Alert severity="success" onClose={() => setShowAlert(false)}>
-                    <AlertTitle>Success</AlertTitle>
-                    Item updated successfully!
-                </Alert>
+                <>
+                    <AdminBackBtn/>
+                    <Alert severity="success" onClose={() => setShowAlert(false)}>
+                        <AlertTitle>Success</AlertTitle>
+                        Item updated successfully!
+                    </Alert>
+                </>
             )}
         </div>
         </div>
