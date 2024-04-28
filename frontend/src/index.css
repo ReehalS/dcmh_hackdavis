@@ -422,4 +422,5 @@ form.signup, form.login {
 
 .claimItem p{
   font-size:15px;
+  justify-content: center;
 }

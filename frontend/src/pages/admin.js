@@ -50,10 +50,14 @@ const Admin = () => {
             <p>  </p>
             <p>  </p>
             <AdminItemTable />
+
+            <div className="claimItem">
             <h2>Running low on supplies?</h2>
-            <p>Send users a notification for highly needed items</p>
+            <p>Send users a notification for highly needed items.</p>
             <p>Items with a number of "Amount Needed" higher than this number will be included in the mailing list: </p>
-            <Box display="flex"> 
+            </div>
+
+            <Box display="flex" justifyContent={'center'}> 
                 <TextField 
                     id="standard-basic" 
                     label="Min Amount" 
