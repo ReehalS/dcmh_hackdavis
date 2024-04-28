@@ -25,7 +25,7 @@ const UserClaimItem = () => {
     // Fetch items when component mounts
     useEffect(() => {
         const fetchItems = async () => {
-            const response = await fetch('http://localhost:4000/api/item');
+            const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item');
             const data = await response.json();
             setItems(data);
         };
@@ -77,7 +77,7 @@ const UserClaimItem = () => {
         const claimData = { claimedAmount: newClaimedAmount };
 
         // Update the item by sending a PATCH request to the server
-        const response = await fetch(`http://localhost:4000/api/item/claim/${selectedItemObj._id}`, {
+        const response = await fetch(`https://dcmh-hackdavis-backend.vercel.app/api/item/claim/${selectedItemObj._id}`, {
             method: 'PATCH',
             body: JSON.stringify(claimData),
             headers: {

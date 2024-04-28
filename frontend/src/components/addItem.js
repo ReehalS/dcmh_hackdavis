@@ -24,7 +24,7 @@ const ItemForm = () => {
 
         const item = { title, description, category,maxAmount, currentAmount, claimedAmount};
 
-        const response = await fetch('http://localhost:4000/api/item', {
+        const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item', {
             method: 'POST',
             body: JSON.stringify(item),
             headers: {

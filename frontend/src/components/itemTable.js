@@ -22,7 +22,7 @@ const ItemsTable = () => {
                 return;
             }
 
-            const response = await fetch('http://localhost:4000/api/item', {});
+            const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item', {});
             const json = await response.json();
             if (response.ok) {
                 setItems(json);

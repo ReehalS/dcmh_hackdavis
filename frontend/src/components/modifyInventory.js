@@ -24,7 +24,7 @@ const ModifyInventory = () => {
     // Fetch items when component mounts
     useEffect(() => {
         const fetchItems = async () => {
-            const response = await fetch('http://localhost:4000/api/item');
+            const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item');
             const data = await response.json();
             setItems(data);
         };
@@ -71,7 +71,7 @@ const ModifyInventory = () => {
         const itemData = { title, description, category, currentAmount, maxAmount, claimedAmount };
 
         // Update item by sending PATCH request to server
-        const response = await fetch(`http://localhost:4000/api/item/${selectedItem._id}`, {
+        const response = await fetch(`https://dcmh-hackdavis-backend.vercel.app/api/item/${selectedItem._id}`, {
             method: 'PATCH',
             body: JSON.stringify(itemData),
             headers: {
@@ -129,7 +129,7 @@ const ModifyInventory = () => {
         }
 
         // Send DELETE request to delete the item
-        const response = await fetch(`http://localhost:4000/api/item/${selectedItem._id}`, {
+        const response = await fetch(`https://dcmh-hackdavis-backend.vercel.app/api/item/${selectedItem._id}`, {
             method: 'DELETE',
             headers: {
                 'Authorization': `Bearer ${user.token}`

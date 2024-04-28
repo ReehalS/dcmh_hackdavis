@@ -11,7 +11,7 @@ const Home = () => {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const response = await fetch('http://localhost:4000/api/item/');
+        const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item/');
         if (!response.ok) {
           throw new Error('Failed to fetch items');
         }

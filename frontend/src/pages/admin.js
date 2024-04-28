@@ -17,7 +17,7 @@ const Admin = () => {
 
     const submit = async () => {
         // sends email with this threshold
-        const response = await fetch('http://localhost:4000/api/email/send-notif', {
+        const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/email/send-notif', {
             method: 'POST',
             body: JSON.stringify(req),
             headers: {

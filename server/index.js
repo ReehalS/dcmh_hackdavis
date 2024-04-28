@@ -16,7 +16,7 @@ app.use(cors())
 app.use(bodyParser.json());
 
 
-const allowedOrigins = ['http://localhost:3000', ''];
+const allowedOrigins = ['http://localhost:3000', 'https://dcmh-hackdavis.vercel.app/'];
 app.use(cors({
   origin: function(origin, callback) {
     if (!origin || allowedOrigins.some(allowedOrigin => origin.startsWith(allowedOrigin))) {

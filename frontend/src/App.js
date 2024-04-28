@@ -10,6 +10,9 @@ import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 import { useAuthContext } from './hooks/useAuthContext';
 import UserClaimItem from './components/userClaimItem';
 import AdminItemTable from './components/adminItemTable';
+import { inject } from '@vercel/analytics';
+inject();
+
 
 
 function App() {
