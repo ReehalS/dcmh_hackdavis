@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
 import { Select, MenuItem } from '@mui/material';
-import { Link, Popover, Typography, Button } from '@mui/material'; // Import necessary components
+import { Popover, Typography, Button } from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
@@ -15,8 +15,6 @@ const ItemsTable = () => {
     const { user } = useAuthContext();
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [order, setOrder] = useState('asc');
-    const [orderBy, setOrderBy] = useState('');
     const navigate = useNavigate(); 
 
     useEffect(() => {
@@ -34,11 +32,6 @@ const ItemsTable = () => {
 
         fetchItems();
     }, [user]);
-
-    const handleTitleClick = (event, item) => {
-        setAnchorEl(event.currentTarget);
-        setSelectedItem(item);
-    };
 
     const handleClose = () => {
         setAnchorEl(null);
