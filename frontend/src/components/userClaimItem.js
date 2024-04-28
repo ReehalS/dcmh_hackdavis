@@ -17,7 +17,7 @@ const UserClaimItem = () => {
     // Access the state passed from the Link
     useEffect(() => {
         //console.log(location.state);
-        //console.log(location.state?.item.title);
+        console.log(location.state?.item.title);
         setSelectedItem(location.state?.title);
         
     }, [location.state]);

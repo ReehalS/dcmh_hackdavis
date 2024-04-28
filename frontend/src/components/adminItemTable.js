@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
 
-const ItemsTable = () => {
+const AdminItemTable = () => {
     
     const [items, setItems] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('');
@@ -73,6 +73,9 @@ const ItemsTable = () => {
         { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
         { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
             <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
+        ), headerAlign: 'center', align: 'center' },
+        { field: 'update', headerName: 'Update', flex: 1, renderCell: (params) => ( 
+            <Button onClick={() => navigate(`/admin/modifyInventory`, { state: params.row })}>Update</Button>
         ), headerAlign: 'center', align: 'center' }
     );
     
@@ -125,4 +128,4 @@ const ItemsTable = () => {
     );
 };
 
-export default ItemsTable;
+export default AdminItemTable;
