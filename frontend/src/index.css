@@ -50,10 +50,15 @@ header a {
 }
 /* Styles for ItemsTable component */
 .table-container {
-  margin-top: 20px;
-  max-height: 400px;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 31vh); /* Adjust the height as needed */
 }
+
+.table {
+  flex: 1; 
+}
+
 
 .table-row:hover {
   background-color: #f5f5f5;
@@ -211,4 +216,22 @@ form.signup, form.login {
 
 .form-container .MuiButton-root {
   margin-top: 20px;
+}
+
+.dropdown-container {
+  margin-bottom: 20px;
+}
+
+.dropdown {
+  width: 300px; /* Adjust the width as needed */
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+
+.dropdown:focus {
+  outline: none;
 }

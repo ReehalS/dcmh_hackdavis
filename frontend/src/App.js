@@ -20,10 +20,7 @@ function App() {
       <Navbar />
         <div className="pages">
           <Routes>
-            <Route
-              path="/"
-              element={<Navigate to="/home"/>}
-              />
+            
             <Route
               path="/home"
               element={user ? <Home/> : <Navigate to="/login"/>}
