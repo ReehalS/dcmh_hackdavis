@@ -149,7 +149,7 @@ const recordItem = async (req, res) => {
         if(newCurrentAmount > item.maxAmount){
             return res.status(400).json({ error: 'Recieved amount exceeds maximum amount' });
         }
-        const newClaimedAmount = parseInt(item.claimedAmount) - parseInt(recievedAmount);
+        newClaimedAmount = parseInt(item.claimedAmount) - parseInt(recievedAmount);
         if(newClaimedAmount < 0){
             newClaimedAmount=0;
         }
