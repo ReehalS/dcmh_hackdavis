@@ -16,6 +16,20 @@ app.use(cors())
 app.use(bodyParser.json());
 
 
+const allowedOrigins = ['http://localhost:3000', ''];
+app.use(cors({
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.some(allowedOrigin => origin.startsWith(allowedOrigin))) {
+      callback(null, true);
+    } else {
+      callback(new Error('The CORS policy for this site does not allow access from the specified origin.'));
+    }
+  },
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+  credentials: true
+}));
+
+
 app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
@@ -37,7 +51,7 @@ mongoose.connect(process.env.MONGO_URI)
   }) 
 
 app.get('/', (req, res) => {
-  res.send("API for workout tracker app.")
+  res.send("API for DCMH Inventory Tracker.")
 })
 
 module.exports = app
