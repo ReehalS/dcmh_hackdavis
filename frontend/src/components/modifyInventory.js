@@ -36,7 +36,7 @@ const ModifyInventory = () => {
             setSearchTerm(location.state?.title.trim());
         
         }
-        console.log(location.state);
+        //console.log(location.state);
     }, [location.state]);
 
     // Function to handle selection of an item

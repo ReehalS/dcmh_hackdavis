@@ -69,8 +69,8 @@ const Navbar = () => {
           onClose={handleMenuClose}
           style={{ marginRight: '30px' }}
         >
-          <MenuItem component={Link} to={user ? "/home" : "/about"} onClick={handleMenuClose}>
-            {user ? "Home" : "About"}
+          <MenuItem component={Link} to={"/home"} onClick={handleMenuClose}>
+            Home
           </MenuItem>
           {user && (
             <div>

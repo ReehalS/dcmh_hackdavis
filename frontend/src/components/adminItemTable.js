@@ -77,6 +77,9 @@ const AdminItemTable = () => {
 
         { field: 'update', headerName: 'Update', flex: 1, renderCell: (params) => ( 
             <Button onClick={() => navigate(`/modifyInventory`, { state: params.row })}>Update</Button>
+        ), headerAlign: 'center', align: 'center' },
+        { field: 'Recieve', headerName: 'Recieve', flex: 1, renderCell: (params) => (
+            <Button onClick={() => navigate(`/recieveItem`, { state: params.row })}>Record</Button>
         ), headerAlign: 'center', align: 'center' }
     );
     

@@ -12,10 +12,15 @@ const Admin = () => {
 
     const [threshold, setThreshold] = useState(0);
     const [sent, setSent] = useState(false);
+    const [error, setError] = useState(null);
 
     const req = { threshold };
 
     const submit = async () => {
+        if (!user) {
+            setError('You must be logged in');
+            return;
+        }
         // sends email with this threshold
         const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/email/send-notif', {
             method: 'POST',
@@ -30,6 +35,7 @@ const Admin = () => {
 
         if (!response.ok) {
             console.log(json.error);
+            setError(json.error);
         }
         setSent(true);
     }
@@ -57,6 +63,11 @@ const Admin = () => {
                     />
                 <Button variant="contained" color="success" onClick={submit}>Submit</Button>
             </Box>
+            {error && (
+                <div className="error">
+                    {error}
+                </div>
+            )}
             {sent && 
                 <div className='alert-container'>
                     <Alert severity="success" onClose={() => {setSent(false)}}>

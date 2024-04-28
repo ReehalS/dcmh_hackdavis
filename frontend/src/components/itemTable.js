@@ -18,10 +18,6 @@ const ItemsTable = () => {
 
     useEffect(() => {
         const fetchItems = async () => {
-            if (!user) {
-                return;
-            }
-
             const response = await fetch('https://dcmh-hackdavis-backend.vercel.app/api/item', {});
             const json = await response.json();
             if (response.ok) {
