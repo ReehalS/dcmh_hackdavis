@@ -33,15 +33,7 @@ header a {
 }
 
 /* homepage */
-.home {
-  display: grid;
-  grid-template-columns: 3fr 1fr; 
-  gap:100px
-}
 
-.home .form{
-  order:2;
-}
 
 .workout-details,
 .goal-details {
@@ -161,7 +153,7 @@ nav a {
 
 nav button,
 .notLoggedIn,
-.goalsLink {
+.homeLink {
   background: #fff;
   color: var(--primary);
   border: 2px solid var(--primary);

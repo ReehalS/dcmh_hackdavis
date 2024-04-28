@@ -2,20 +2,33 @@ const Item = require('../models/itemModel');
 
 
 const createItem = async (req, res) => {
-    const item = new Item({
-        name: req.body.name,
-        description: req.body.description,
-        category: req.body.categry,
-        currentAmount: req.body.currentAmount,
-        maxAmount: req.body.maxAmount
-    });
+    const {title, description, category, currentAmount, maxAmount, claimedAmount} = req.body
 
-    item
-        .save()
-        .then((item) => res.status(201).json(item))
-        .catch((err) => res.status(400).json("Error: " + err));
-
-}
+    let emptyFields = []
+  
+    if(!title){
+      emptyFields.push('Item Title')
+    }
+    if(!description){
+      emptyFields.push('Description')
+    }
+    if(!category){
+      emptyFields.push('Category')
+    }
+    if(!maxAmount){
+        emptyFields.push('Maximum Amount')
+    }
+    
+    if(emptyFields.length > 0){
+      return res.status(400).json({error: `Please provide a value for the following fields : `, emptyFields})
+    }
+    try {
+      const item = await Item.create({ title, description, category, currentAmount, maxAmount, claimedAmount })
+      res.status(200).json(item)
+    } catch (error) {
+      res.status(400).json({ error: error.message })
+    }
+  }
 
 const getItems = async (req, res) => {
     Item.find()

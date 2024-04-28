@@ -10,7 +10,7 @@ export const useLogin = ()=>{
     const login = async (email, password)=>{
         setLoading(true);
         setError(null);
-        const response = await fetch('https://workout-site-backend.vercel.app/api/user/login', {
+        const response = await fetch('http://localhost:4000/api/user/login', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

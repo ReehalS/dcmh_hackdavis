@@ -16,7 +16,9 @@ const loginUser = async (req, res) => {
 
         const token = createToken(user._id)
 
-        res.status(200).json({email,token})
+        isAdmin = user.isAdmin
+
+        res.status(200).json({email,token, isAdmin})
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -29,7 +31,11 @@ const signupUser = async (req, res) => {
 
         const token = createToken(user._id)
 
-        res.status(200).json({email,token})
+        isAdmin = user.isAdmin
+
+        res.status(200).json({email,token, isAdmin})
+
+        
     } catch (error) {
         res.status(400).json({error: error.message})
     }
@@ -42,7 +48,7 @@ const signupAdmin = async (req, res) => {
 
         const token = createToken(user._id)
 
-        res.status(200).json({email,token})
+        res.status(200).json({email,token, isAdmin})
     } catch (error) {
         res.status(400).json({error: error.message})
     }

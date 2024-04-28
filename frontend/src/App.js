@@ -1,8 +1,9 @@
 import Navbar from './components/navbar';
-import Home from './pages/home';
+import Table from './components/itemTable';
 import Login from './pages/login';
 import Signup from './pages/signup';
-import About from './pages/about';
+import ItemForm from './components/addItem';
+import Home from './pages/home';
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
 
 import { useAuthContext } from './hooks/useAuthContext';
@@ -25,19 +26,22 @@ function App() {
               path="/home"
               element={user ? <Home/> : <Navigate to="/login"/>}
               />
-              <Route
+            <Route
               path="/login"
               element={!user ? <Login /> : <Navigate to="/home"/>}
               />
-              <Route
+            <Route
               path="/signup"
               element={!user ? <Signup/> : <Navigate to="/home"/>}
               />
-              <Route
-                path="/about"
-                element={<About/>}
+            <Route
+              path="/addItem"
+              element={user ? <ItemForm/> : <Navigate to="/login"/>}
               />
-              
+            <Route
+              path="/itemTable"
+              element={user ? <Table/> : <Navigate to="/login"/>}
+              />
           </Routes>
         </div>
       </BrowserRouter>
