@@ -272,37 +272,12 @@ form.signup, form.login {
 .dropdown-container {
   display: flex;
   justify-content: center;
-  margin-top: 20px; /* Adjust margin as needed */
+  margin-top: 20px; 
   margin-bottom: 20px;
   text-align: center;
 }
 
 
-
-.dropbtn {
-  background-color: white;
-  color: black ;
-  font-size: 30px;
-  align-items: center;
-  font-family: "Poppins";
-  font-weight: bold;
-  padding: 10px;
-  border: black;
-  cursor: pointer;
-}
-
-
-.dropdown-content .item-bar.light-green-bg {
-  background-color: rgb(180, 235, 180);
-}
-
-.dropdown-content .item-bar.dark-green-bg {
-  background-color: rgb(61, 113, 61);
-}
-
-.dropdown-content .item-bar:nth-child(odd) {
-  background-color: rgb(180, 235, 180);
-}
 
 .exclamation-icons {
   font-size: 90px;
@@ -314,11 +289,6 @@ form.signup, form.login {
   border: none;
   padding: 5px 10px;
   cursor: pointer;
-}
-
-/* Dropdown hover */
-.dropdown:hover .dropdown-content {
-  display: block;
 }
 
 /* Dropdown arrow */
@@ -339,55 +309,6 @@ form.signup, form.login {
   transform: translateY(-50%) rotate(-135deg);
 }
 
-/* Dropdown styles */
-.dropdown-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px; /* Adjust margin as needed */
-  margin-bottom: 20px;
-  text-align: center;
-}
-
-
-
-.dropbtn {
-  background-color: white;
-  color: black ;
-  font-size: 30px;
-  align-items: center;
-  font-family: "Poppins";
-  font-weight: bold;
-  padding: 10px;
-  border: black;
-  cursor: pointer;
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content .item-bar {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.dropdown-content .item-bar.light-green-bg {
-  background-color: rgb(180, 235, 180);
-}
-
-.dropdown-content .item-bar.dark-green-bg {
-  background-color: rgb(61, 113, 61);
-}
-
-.dropdown-content .item-bar:nth-child(odd) {
-  background-color: rgb(180, 235, 180);
-}
 
 .exclamation-icons {
   font-size: 20px;
@@ -401,10 +322,6 @@ form.signup, form.login {
   cursor: pointer;
 }
 
-/* Dropdown hover */
-.dropdown:hover .dropdown-content {
-  display: block;
-}
 
 /* Dropdown arrow */
 .dropdown:before {
@@ -445,16 +362,23 @@ form.signup, form.login {
 }
 
 
-.datagrid-container {
-  max-width: 1000px; 
-}
-
 .homeItemsTable{
   width: 700px;
-  margin: auto;
   margin-top: 4vh;
   padding-top: 1vh;
+  padding: 10px;
   background-color: #fff;
+  
+  border-radius: 5px;
+  border: 1px solid #ccc;
+
+}
+
+.homeItemsContainer{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .itemTableHeader {
@@ -465,6 +389,7 @@ form.signup, form.login {
   margin-top: 10px;
 }
 
+
 .itemTableHeader h1 {
-  margin: 0; /* Remove default margin */
+  margin: 0; 
 }

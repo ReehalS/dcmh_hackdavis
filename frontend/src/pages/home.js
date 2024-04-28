@@ -42,34 +42,38 @@ const Home = () => {
 
   return (
     <div>
-    <div className="donate-block-container">
-      <div className="donate-block">
-        Donate Online!
-      </div>
+        <div className="donate-block-container">
+        <div className="donate-block">
+            Donate Online!
         </div>
-            <div className="dropdown-container">
-                <div className="dropdown">
-                    <h1 className="exclamation-icons">!!! Urgently Needed Items!!!</h1>
+            </div>
+                <div className="dropdown-container">
+                    <div className="dropdown">
+                        <h1 className="exclamation-icons">!!! Urgently Needed Items!!!</h1>
 
-                <div style={{ height: 400, width: '100%' }}>
-                <DataGrid
-                    rows={urgentlyNeededItems}
-                    columns={columns}
-                    initialState={{
-                        pageSize: 5,
-                        page: 0
-                    }}
-                    rowsPerPageOptions={[5]}
-                    checkboxSelection={false}
-                    disableSelectionOnClick
+                    <div style={{ height: 400, width: '100%' }}>
+                    <DataGrid
+                        rows={urgentlyNeededItems}
+                        columns={columns}
+                        initialState={{
+                            pageSize: 5,
+                            page: 0
+                        }}
+                        rowsPerPageOptions={[5]}
+                        checkboxSelection={false}
+                        disableSelectionOnClick
+                        
+                        getRowId={(row) => row._id}
+                    />
                     
-                    getRowId={(row) => row._id}
-                />
-                <div className={"homeItemsTable"}>
-                    <ItemsTable />
-                </div>
+                    </div>
                 </div>
             </div>
+        <div className="homeItemsContainer">
+            <div className="homeItemsTable">
+                <ItemsTable />
+            </div>
+            
         </div>
     </div>
 
