@@ -5,6 +5,7 @@ const ItemForm = () => {
   const location = useLocation();
   const item = location.state.item;
   const [donationAmount, setDonationAmount] = useState(0);
+  const [error, setError] = useState(null);
 
   const handleDonationChange = (event) => {
     const value = event.target.value;
@@ -16,7 +17,7 @@ const ItemForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('/api/donate', {
+      const response = await fetch('/api/item/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -33,6 +34,7 @@ const ItemForm = () => {
   
     } catch (error) {
       console.error('Error:', error);
+      setError(error);
     }
   }
 
@@ -41,6 +43,7 @@ const ItemForm = () => {
       <h4>{item.title}</h4>
       <p>Maximum donation amount: {item.maxAmount - item.currentAmount}</p>
       <input type="number" value={donationAmount} onChange={handleDonationChange} />
+      {error && <p>{error.message}</p>}
       <button type="submit">Donate</button>
     </form>
   )

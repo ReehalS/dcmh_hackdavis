@@ -1,6 +1,6 @@
 const express= require('express')
 
-const {} = require('../controllers/itemController')
+const {createItem, getItem, getItems, updateItem, deleteItem} = require('../controllers/itemController')
 
 const router = express.Router()
 
