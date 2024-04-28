@@ -290,20 +290,6 @@ form.signup, form.login {
   cursor: pointer;
 }
 
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 160px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-  z-index: 1;
-}
-
-.dropdown-content .item-bar {
-  padding: 10px;
-  display: flex;
-  justify-content: space-between;
-}
 
 .dropdown-content .item-bar.light-green-bg {
   background-color: rgb(180, 235, 180);
@@ -318,7 +304,7 @@ form.signup, form.login {
 }
 
 .exclamation-icons {
-  font-size: 20px;
+  font-size: 90px;
 }
 
 .donate-btn {

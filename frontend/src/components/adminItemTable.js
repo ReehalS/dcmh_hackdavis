@@ -109,7 +109,6 @@ const AdminItemTable = () => {
                     pageSizeOptions={[5]}
                     checkboxSelection={false}
                     disableRowSelectionOnClick
-
                     getRowId={(row) => row._id}
                 />
             </div>    

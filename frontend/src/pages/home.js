@@ -1,42 +1,78 @@
-import { Link } from 'react-router-dom';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { useNavigate } from 'react-router-dom';
+import { Button } from '@mui/material';
 
 const Home = () => {
+  const [urgentlyNeededItems, setUrgentlyNeededItems] = useState([]);
+  const navigate = useNavigate(); 
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch('http://localhost:4000/api/item/');
+        if (!response.ok) {
+          throw new Error('Failed to fetch items');
+        }
+        const data = await response.json();
+        // Filter items where remaining amount > 50% of maxAmount
+        const filteredItems = data.filter(item => (item.maxAmount - (item.currentAmount + item.claimedAmount)) > 0.25 * item.maxAmount);
+        setUrgentlyNeededItems(filteredItems);
+      } catch (error) {
+        console.error('Error fetching items:', error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+    const calculateClaimableItems = (item) => {
+        const remainingAmount = item.maxAmount - (item.currentAmount + item.claimedAmount);
+        return remainingAmount > 0 ? remainingAmount : 0;
+    };
+
+  const columns = [
+    { field: 'title', headerName: 'Title', width: 200 },
+    { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
+    { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
+        <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
+    ), headerAlign: 'center', align: 'center' }
+  ];
+
   return (
     <div>
-      <div className="donate-block-container">
-        <div className="donate-block">
-          Donate Online!
-        </div>
+    <div className="donate-block-container">
+      <div className="donate-block">
+        Donate Online!
       </div>
-      <div className="dropdown-container">
-        <div className="dropdown">
-          {/* Dropdown button with icon */}
-          <button className="dropbtn">
-            !!! Urgently Needed Items!!!<span className="exclamation-icons"></span>
-          </button>
-          {/* Dropdown content */}
-          <div className="dropdown-content">
-            {/* List of items with alternating background colors */}
-            <div className="item-bar light-green-bg">
-              Coffee
-              <button><Link to="/userClaimItem" className="donate-btn">Donate</Link></button>
-            </div>
-            <div className="item-bar dark-green-bg">
-              Sugar
-              <button><Link to="/userClaimItem" className="donate-btn">Donate</Link></button>
-            </div>
-            <div className="item-bar light-green-bg">
-              Cups
-              <button><Link to="/userClaimItem" className="donate-btn">Donate</Link></button>
-            </div>
-            {/* Add more items as needed */}
-          </div>
         </div>
-      </div>
+            <div className="dropdown-container">
+                <div className="dropdown">
+                    <p className="exclamation-icons">!!! Urgently Needed Items!!!</p>
+
+                <div style={{ height: 400, width: '100%' }}>
+                <DataGrid
+                    rows={urgentlyNeededItems}
+                    columns={columns}
+                    initialState={{
+                    pagination: {
+                        paginationModel: {
+                        pageSize: 20,
+                        },
+                    },
+                    }}
+                    rowsPerPageOptions={[5]}
+                    checkboxSelection={false}
+                    disableSelectionOnClick
+                    
+                    getRowId={(row) => row._id}
+                />
+                </div>
+            </div>
+        </div>
     </div>
-  ); 
+
+  );
 }
 
 export default Home;
-
