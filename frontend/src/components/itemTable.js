@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
 import { DataGrid } from '@mui/x-data-grid'; // Import DataGrid from MUI
-import { Select, MenuItem } from '@mui/material';
-import { Popover, Typography, Button } from '@mui/material'; // Import necessary components
+import { Select, MenuItem, Popover, Typography, Button } from '@mui/material'; // Import necessary components
 import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 
 const categories = ['Food & Supplies', 'Cleaning and Sanitizing', 'Hygiene', 'Medicine'];
@@ -38,6 +37,11 @@ const ItemsTable = () => {
         setSelectedItem(null);
     };
 
+    const handleTitleClick = (event, item) => {
+        setAnchorEl(event.currentTarget);
+        setSelectedItem(item);
+    };
+
     const open = Boolean(anchorEl);
 
     const handleCategoryChange = (event) => {
@@ -54,13 +58,16 @@ const ItemsTable = () => {
     const filteredItems = showAllCategories ? items : items.filter(item => item.category === selectedCategory);
 
     const columns = [
-        { field: 'title', headerName: 'Title', flex: 1 },
-        { field: 'category', headerName: 'Category', flex: 1 },
-        { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row) },
-        { field: 'action', headerName: 'Action', flex: 1, renderCell: (params) => (
+        { field: 'title', headerName: 'Title', flex: 1, headerAlign: 'center', align: 'center', renderCell: (params) => (
+            <span onClick={(event) => handleTitleClick(event, params.row)}>{params.value}</span>
+        )},
+        { field: 'category', headerName: 'Category', flex: 1, headerAlign: 'center', align: 'center' },
+        { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
+        { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
             <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
-        )}
+        ), headerAlign: 'center', align: 'center' }
     ];
+    
     
     return (
         <div>
