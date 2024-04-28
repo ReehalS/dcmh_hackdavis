@@ -43,7 +43,7 @@ const sendLowNotif = async (req, res) => {
             Item.find().then((items) => {
                 var lowItems = ""
                 for (var item of items) {
-                    if (item.currentAmount + item.claimedAmount < threshold) {
+                    if (item.maxAmount - (item.currentAmount + item.claimedAmount) >= threshold) {
                         lowItems += "<li>" + item.title + "</li>"
                     }
                 }
