@@ -130,5 +130,40 @@ const claimItem = async (req, res) => {
   }
 };
 
+const recordItem = async (req, res) => {
+    const { recievedAmount } = req.body;
+  
+    if (recievedAmount <= 0) {
+        return res.status(400).json({ error: 'Please enter a valid amount recieved' });
+    }
+  
+    try {
+        const item = await Item.findById(req.params.id);
+  
+        if (!item) {
+            return res.status(404).json({ error: 'Item not found' });
+        }
+        
+        // Calculate future amount after claiming
+        const newCurrentAmount = parseInt(item.currentAmount) + parseInt(recievedAmount);
+        if(newCurrentAmount > item.maxAmount){
+            return res.status(400).json({ error: 'Recieved amount exceeds maximum amount' });
+        }
+        const newClaimedAmount = parseInt(item.claimedAmount) - parseInt(recievedAmount);
+        if(newClaimedAmount < 0){
+            newClaimedAmount=0;
+        }
+        //console.log(newCurrentAmount)
+        //console.log(newClaimedAmount)
+        
+        const updatedItem = await Item.findByIdAndUpdate(req.params.id, { currentAmount: newCurrentAmount, claimedAmount: newClaimedAmount }, { new: true });
+  
+        res.status(200).json(updatedItem);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+  };
+  
 
-module.exports = { createItem, getItems, getItem, updateItem, deleteItem, claimItem};
+
+module.exports = { createItem, getItems, getItem, updateItem, deleteItem, claimItem, recordItem};

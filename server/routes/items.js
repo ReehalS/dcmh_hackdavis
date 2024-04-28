@@ -1,6 +1,6 @@
 const express= require('express')
 
-const { createItem, getItems, getItem, updateItem, deleteItem , claimItem} = require('../controllers/itemController')
+const { createItem, getItems, getItem, updateItem, deleteItem , claimItem, recordItem} = require('../controllers/itemController')
 
 const router = express.Router()
 
@@ -15,6 +15,8 @@ router.patch('/:id', updateItem);
 router.delete('/id', deleteItem);
 
 router.patch('/claim/:id', claimItem);
+
+router.patch('/recieve/:id', recordItem);
 
 module.exports = router;
 

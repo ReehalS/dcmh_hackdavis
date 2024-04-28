@@ -74,11 +74,13 @@ const Navbar = () => {
           </MenuItem>
           {user && (
             <div>
-              <MenuItem component={Link} to="/itemTable" onClick={handleMenuClose}>All Items</MenuItem>
-              <MenuItem component={Link} to="/userClaimItem" onClick={handleMenuClose}>Claim Item</MenuItem>
               {user.isAdmin && <MenuItem component={Link} to="/admin" onClick={handleMenuClose}>Admin</MenuItem>}
               {user.isAdmin && <MenuItem component={Link} to="/addItem" onClick={handleMenuClose}><span> </span> Add Item</MenuItem>}
               {user.isAdmin && <MenuItem component={Link} to="/modifyInventory" onClick={handleMenuClose}><span> </span> Modify Inventory</MenuItem>}
+              {user.isAdmin && <MenuItem component={Link} to="/recieveItem" onClick={handleMenuClose}><span> </span> Recieve Items</MenuItem>}
+              
+              <MenuItem component={Link} to="/itemTable" onClick={handleMenuClose}>All Items</MenuItem>
+              <MenuItem component={Link} to="/userClaimItem" onClick={handleMenuClose}>Claim Item</MenuItem>
               <MenuItem onClick={handleClick}>Logout</MenuItem>
               <MenuItem disabled>{truncateEmail(user.email)}</MenuItem>
             </div>
