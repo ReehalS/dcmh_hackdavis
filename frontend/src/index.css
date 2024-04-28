@@ -38,7 +38,7 @@ h1{
 h2{
   padding-right: 180px;
   padding-top: 10px;
-  font-size: 220% ;
+  font-size: 180%;
 
 }
 body {
@@ -163,7 +163,7 @@ nav a {
 nav button,
 .notLoggedIn,
 .homeLink {
-  background: #f1f1f1;
+  background: #ffffff;
   color: var(--primary);
   border: 2px solid var(--primary);
   padding: 6px;
@@ -173,6 +173,8 @@ nav button,
   font-size: 1em;
   margin-left: 10px;
   margin-right:10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   text-decoration: none;
   max-width: fit-content;
   max-height: fit-content;
@@ -373,4 +375,15 @@ form.signup, form.login {
 
 .alert-container {
   padding: 20px;
+}
+
+.menuItem {
+  background-color: #75c38e; /* Use your primary color here */
+  color: black; /* Text color */
+  margin: 5px;
+  outline: olive;
+}
+
+.menuItem:hover {
+  background-color: #569c6c; /* Use a slightly darker shade on hover */
 }
