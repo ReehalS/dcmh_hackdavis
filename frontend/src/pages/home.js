@@ -16,7 +16,7 @@ const Home = () => {
         }
         const data = await response.json();
         // Filter items where remaining amount > 50% of maxAmount
-        const filteredItems = data.filter(item => (item.maxAmount - (item.currentAmount + item.claimedAmount)) > 0.25 * item.maxAmount);
+        const filteredItems = data.filter(item => (calculateClaimableItems(item)) > 0.33 * item.maxAmount);
         setUrgentlyNeededItems(filteredItems);
       } catch (error) {
         console.error('Error fetching items:', error);
@@ -35,7 +35,7 @@ const Home = () => {
     { field: 'title', headerName: 'Title', width: 200 },
     { field: 'claimableItems', headerName: 'Amount Needed', flex: 1, renderCell: (params) => calculateClaimableItems(params.row), headerAlign: 'center', align: 'center' },
     { field: 'action', headerName: 'Donate', flex: 1, renderCell: (params) => (
-        <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })} disabled={(params.row.currentAmount + params.row.claimedAmount) >= params.row.maxAmount}>Donate</Button>
+        <Button onClick={() => navigate(`/userClaimItem`, { state: params.row })}>Donate</Button>
     ), headerAlign: 'center', align: 'center' }
   ];
 

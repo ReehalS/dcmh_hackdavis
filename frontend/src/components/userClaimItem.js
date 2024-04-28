@@ -7,17 +7,16 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 const UserClaimItem = () => {
     const { user } = useAuthContext();
-    const [items, setItems] = useState([]); // State to hold fetched items
-    const [selectedItem, setSelectedItem] = useState(''); // State to hold selected item
-    const [claimAmount, setClaimAmount] = useState(''); // State to hold the claimed amount
+    const [items, setItems] = useState([]); 
+    const [selectedItem, setSelectedItem] = useState(''); 
+    const [claimAmount, setClaimAmount] = useState(''); 
     const [error, setError] = useState(null);
     const [showAlert, setShowAlert] = useState(false);
-    const location = useLocation(); // Use useLocation hook to access the location
+    const location = useLocation(); 
 
     // Access the state passed from the Link
     useEffect(() => {
-        //console.log(location.state);
-        console.log(location.state?.item.title);
+        console.log(location.state?.title);
         setSelectedItem(location.state?.title);
         
     }, [location.state]);
