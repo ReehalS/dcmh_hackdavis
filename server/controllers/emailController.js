@@ -52,7 +52,7 @@ const sendLowNotif = async (req, res) => {
                     from: process.env.EMAIL,
                     to: emailList,
                     subject: "Davis Community Meals and Housing is in Urgent Need of Donations!", 
-                    html: "<p>Hello Davis Community Member, </p> <p>Davis Community Meals and Housing is running low on donations, and we need your help!</p> <p>The current urgently needed items are: " + lowItems + "</p> <b>Please see our website {} to find how to sign up and donate!</b>"
+                    html: "<p>Hello Davis Community Member, </p> <p>Davis Community Meals and Housing is running low on donations, and we need your help!</p> <p>The current urgently needed items are: " + lowItems + "</p> <b>Please see our website https://dcmh-hackdavis.vercel.app/ to find how to sign up and donate!</b>"
                 };
 
                 transporter.sendMail(mailData, (error, info) => {
