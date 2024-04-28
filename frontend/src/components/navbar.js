@@ -7,7 +7,7 @@ const Navbar = () => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const {logout} = useLogout()
   const {user} = useAuthContext()
-
+  
 
   const handleClick = () => {
     logout()
@@ -35,7 +35,9 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
+      <img src="../../public/davis-community-meals-and-housing.jpg" alt="DCMH Logo" />
         <Link to={user ? "/home" : "/about"}>
+        
           <h1>DCMH</h1>
         </Link>
         <nav className="navbar">

@@ -1,28 +1,28 @@
-// to add an item to the database for the admin page
+import React, { useState } from "react";
+import { useAuthContext } from '../hooks/useAuthContext';
+import { TextField, Select, MenuItem, Button, FormControl, InputLabel, FormHelperText } from '@mui/material';
 
-import React, { useState } from "react"
-import { useAuthContext } from '../hooks/useAuthContext'
 
 const ItemForm = () => {
-    const { user } = useAuthContext()
+    const { user } = useAuthContext();
 
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [category, setCategory] = useState('')
-    const [currentAmount, setCurrentAmount] = useState(0)
-    const [maxAmount, setMaxAmount] = useState(0)
-    const [claimedAmount, setClaimedAmount] = useState(0)
-    const [error, setError] = useState(null)
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+    const [maxAmount, setMaxAmount] = useState(0);
+    const [currentAmount, setCurrentAmount] = useState(0);
+    const [claimedAmount, setClaimedAmount] = useState(0);
+    const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
         if (!user) {
-            setError('You must be logged in')
-            return
+            setError('You must be logged in');
+            return;
         }
-        setClaimedAmount(0)
-        const item = {title, description, category, currentAmount, maxAmount, claimedAmount}
+
+        const item = { title, description, category,maxAmount, currentAmount, claimedAmount};
 
         const response = await fetch('http://localhost:4000/api/item', {
             method: 'POST',
@@ -30,74 +30,85 @@ const ItemForm = () => {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${user.token}`
-        }
-        })
-        const json = await response.json()
+            }
+        });
+        const json = await response.json();
 
         if (!response.ok) {
-            setError(json.error)
+            setError(json.error);
+        } else {
+            setTitle('');
+            setDescription('');
+            setCategory('');
+            setMaxAmount(0);
+            setCurrentAmount(0);
+            setClaimedAmount(0);
+            setError(null);
         }
-        if (response.ok) {
-            setTitle('')
-            setDescription('')
-            setCategory('')
-            setCurrentAmount(0)
-            setMaxAmount(0)
-            setError(null)
-        }
-    }
+    };
 
     return (
-        <form className="create" onSubmit={handleSubmit}>
-        <h3>Add a New Item</h3>
+        <form className="form-container create" onSubmit={handleSubmit}>
+            <h3>Add a New Item</h3>
 
-        <label>Item Title:</label>
-        <input 
-            type="text"
-            onChange={(e) => setTitle(e.target.value)}
-            value={title}
-        />
+            <TextField
+                label="Item Title"
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+            />
 
-        <label>Description:</label>
-        <input 
-            type="text"
-            onChange={(e) => setDescription(e.target.value)}
-            value={description}
-        />
+            <TextField
+                label="Description"
+                type="text"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
 
-        <label>Category:</label>
-        <select
-            onChange={(e) => setCategory(e.target.value)}
-            value={category}
-        >
-            <option value="">Select a category</option>
-            <option value="Food & Supplies">Food & Supplies</option>
-            <option value="Cleaning and Sanitizing">Cleaning and Sanitizing</option>
-            <option value="Hygiene">Hygiene</option>
-            <option value="Medicine">Medicine</option>
-        </select>
+            <FormControl>
+                <InputLabel>Category</InputLabel>
+                <Select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                >
+                    <MenuItem value="">Select a category</MenuItem>
+                    <MenuItem value="Food & Supplies">Food & Supplies</MenuItem>
+                    <MenuItem value="Cleaning and Sanitizing">Cleaning and Sanitizing</MenuItem>
+                    <MenuItem value="Hygiene">Hygiene</MenuItem>
+                    <MenuItem value="Medicine">Medicine</MenuItem>
+                </Select>
+                <FormHelperText>Select the category of the item</FormHelperText>
+            </FormControl>
 
-        <label>Current Amount:</label>
-        <input 
-            type="number"
-            onChange={(e) => setCurrentAmount(e.target.value)}
-            value={currentAmount}
-        />
-        <label>Maximum Amount:</label>
-        <input 
-            type="number"
-            onChange={(e) => setMaxAmount(e.target.value)}
-            value={maxAmount}
-        />
+            <TextField
+                type="number"
+                label="Maximum Amount"
+                value={maxAmount}
+                onChange={(e) => setMaxAmount(e.target.value)}
+            />
 
-        <button>Add Item</button>
-        {error && (
-            <div className="error">
-                {error}
-            </div>
+            <TextField
+                type="number"
+                label="Current Amount"
+                value={currentAmount}
+                onChange={(e) => setCurrentAmount(e.target.value)}
+            />
+
+            <TextField
+                type="number"
+                label="Claimed Amount"
+                value={claimedAmount}
+                onChange={(e) => setClaimedAmount(e.target.value)}
+            />
+
+            <Button variant="contained" type="submit">Add Item</Button>
+            {error && (
+                <div className="error">
+                    {error}
+                </div>
             )}
         </form>
-    )
-}
+    );
+};
 
-export default ItemForm
+export default ItemForm;

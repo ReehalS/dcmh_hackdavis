@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
+import { TextField, Select, MenuItem, Button, FormControl, InputLabel, Typography } from '@mui/material';
 
 const ModifyInventory = () => {
     const { user } = useAuthContext();
@@ -21,7 +22,6 @@ const ModifyInventory = () => {
             const response = await fetch('http://localhost:4000/api/item');
             const data = await response.json();
             setItems(data);
-            console.log(items);
         };
         fetchItems();
     }, []);
@@ -52,7 +52,7 @@ const ModifyInventory = () => {
 
         const itemData = { title, description, category, currentAmount, maxAmount, claimedAmount };
 
-        // Update item by sending PUT request to server
+        // Update item by sending PATCH request to server
         const response = await fetch(`http://localhost:4000/api/item/${selectedItem._id}`, {
             method: 'PATCH',
             body: JSON.stringify(itemData),
@@ -76,7 +76,6 @@ const ModifyInventory = () => {
             setError(null);
             setSelectedItem(null);
         }
-        
     };
 
     // Function to handle search term change
@@ -90,75 +89,83 @@ const ModifyInventory = () => {
     );
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search by title"
+        <div className="modify-inventory-container"> {/* Apply custom class */}
+            <TextField
+                label="Search by title"
+                variant="outlined"
                 value={searchTerm}
                 onChange={handleSearchChange}
             />
-            <select
-                onChange={handleTitleChange}
-                value={selectedItem ? selectedItem.title : ''}
-            >
-                <option value="">Select an item</option>
-                {filteredItems.map(item => (
-                    <option key={item._id} value={item.title}>{item.title}</option>
-                ))}
-            </select>
+            <FormControl fullWidth>
+                <InputLabel>Select Item</InputLabel>
+                <Select
+                    value={selectedItem ? selectedItem.title : ''}
+                    onChange={handleTitleChange}
+                >
+                    <MenuItem value="">Select an item</MenuItem>
+                    {filteredItems.map(item => (
+                        <MenuItem key={item._id} value={item.title}>{item.title}</MenuItem>
+                    ))}
+                </Select>
+            </FormControl>
 
             {selectedItem && (
-                <form className="create" onSubmit={handleSubmit}>
-                    <h3>Update Item</h3>
+                <form onSubmit={handleSubmit} className="modify-inventory-form"> {/* Apply custom class */}
+                    <Typography variant="h6">Update Item</Typography>
 
-                    <label>Item Title:</label>
-                    <input
-                        type="text"
-                        onChange={(e) => setTitle(e.target.value)}
+                    <TextField
+                        label="Item Title"
+                        variant="outlined"
                         value={title}
+                        onChange={(e) => setTitle(e.target.value)}
                     />
 
-                    <label>Description:</label>
-                    <input 
-                        type="text"
-                        onChange={(e) => setDescription(e.target.value)}
+                    <TextField
+                        label="Description"
+                        variant="outlined"
                         value={description}
+                        onChange={(e) => setDescription(e.target.value)}
                     />
 
-                    <label>Category:</label>
-                    <select
-                        onChange={(e) => setCategory(e.target.value)}
-                        value={category}
-                    >
-                        <option value="">Select a category</option>
-                        <option value="Food & Supplies">Food & Supplies</option>
-                        <option value="Cleaning and Sanitizing">Cleaning and Sanitizing</option>
-                        <option value="Hygiene">Hygiene</option>
-                        <option value="Medicine">Medicine</option>
-                    </select>
+                    <FormControl fullWidth>
+                        <InputLabel>Category</InputLabel>
+                        <Select
+                            value={category}
+                            onChange={(e) => setCategory(e.target.value)}
+                        >
+                            <MenuItem value="">Select a category</MenuItem>
+                            <MenuItem value="Food & Supplies">Food & Supplies</MenuItem>
+                            <MenuItem value="Cleaning and Sanitizing">Cleaning and Sanitizing</MenuItem>
+                            <MenuItem value="Hygiene">Hygiene</MenuItem>
+                            <MenuItem value="Medicine">Medicine</MenuItem>
+                        </Select>
+                    </FormControl>
 
-                    <label>Maximum Amount:</label>
-                    <input 
+                    <TextField
+                        label="Maximum Amount"
+                        variant="outlined"
                         type="number"
-                        onChange={(e) => setMaxAmount(e.target.value)}
                         value={maxAmount}
+                        onChange={(e) => setMaxAmount(e.target.value)}
                     />
 
-                    <label>Current Amount:</label>
-                    <input 
+                    <TextField
+                        label="Current Amount"
+                        variant="outlined"
                         type="number"
-                        onChange={(e) => setCurrentAmount(e.target.value)}
                         value={currentAmount}
+                        onChange={(e) => setCurrentAmount(e.target.value)}
                     />
                     
-                    <label>Claimed Amount:</label>
-                    <input 
+                    <TextField
+                        label="Claimed Amount"
+                        variant="outlined"
                         type="number"
-                        onChange={(e) => setClaimedAmount(e.target.value)}
                         value={claimedAmount}
+                        onChange={(e) => setClaimedAmount(e.target.value)}
                     />
 
-                    <button>Update Item</button>
+                    <Button variant="contained" type="submit">Update Item</Button>
                     {error && (
                         <div className="error">
                             {error}

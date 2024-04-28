@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
+import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Snackbar } from '@mui/material';
 
 const UserClaimItem = () => {
     const { user } = useAuthContext();
 
     const [items, setItems] = useState([]); // State to hold fetched items
-    const [selectedItem, setSelectedItem] = useState(null); // State to hold selected item
-    const [claimAmount, setClaimAmount] = useState(0); // State to hold the claimed amount
+    const [selectedItem, setSelectedItem] = useState(''); // State to hold selected item
+    const [claimAmount, setClaimAmount] = useState(''); // State to hold the claimed amount
     const [error, setError] = useState(null);
+    const [successAlert, setSuccessAlert] = useState(false);
+    const [donatedItems, setDonatedItems] = useState(0); // State to hold number of donated items
 
     // Fetch items when component mounts
     useEffect(() => {
@@ -19,16 +22,26 @@ const UserClaimItem = () => {
         fetchItems();
     }, []);
 
+    // Fetch number of donated items
+    useEffect(() => {
+        const fetchDonatedItems = async () => {
+            const response = await fetch('http://localhost:4000/api/donatedItems'); // Endpoint to fetch number of donated items
+            const data = await response.json();
+            setDonatedItems(data.count);
+        };
+        fetchDonatedItems();
+    }, [successAlert]); // Fetch again when a new item is successfully claimed
+
     // Function to handle selection of an item
-    const handleTitleChange = (e) => {
-        const selected = items.find(item => item.title === e.target.value);
-        setSelectedItem(selected);
+    const handleTitleChange = (event) => {
+        setSelectedItem(event.target.value);
     };
 
     // Function to calculate how many items the user can claim
     const calculateClaimableItems = () => {
-        if (!selectedItem) return 0;
-        const remainingAmount = selectedItem.maxAmount - (selectedItem.currentAmount + selectedItem.claimedAmount);
+        const selectedItemObj = items.find(item => item.title === selectedItem);
+        if (!selectedItemObj) return 0;
+        const remainingAmount = selectedItemObj.maxAmount - (selectedItemObj.currentAmount + selectedItemObj.claimedAmount);
         return remainingAmount > 0 ? remainingAmount : 0;
     };
 
@@ -50,13 +63,19 @@ const UserClaimItem = () => {
         }
 
         // Calculate the new claimed amount by adding the entered claim amount to the existing claimed amount
-        const newClaimedAmount = selectedItem.claimedAmount + parseInt(claimAmount);
+        const selectedItemObj = items.find(item => item.title === selectedItem);
+        if (!selectedItemObj) {
+            setError('Please select an item');
+            return;
+        }
+
+        const newClaimedAmount = parseInt(claimAmount);
 
         // Submit the claim
         const claimData = { claimedAmount: newClaimedAmount };
 
         // Update the item by sending a PATCH request to the server
-        const response = await fetch(`http://localhost:4000/api/item/claim/${selectedItem._id}`, {
+        const response = await fetch(`http://localhost:4000/api/item/claim/${selectedItemObj._id}`, {
             method: 'PATCH',
             body: JSON.stringify(claimData),
             headers: {
@@ -72,41 +91,66 @@ const UserClaimItem = () => {
         }
 
         // Reset form fields and errors after successful submission
-        setSelectedItem(null);
-        setClaimAmount(0);
+        setSelectedItem('');
+        setClaimAmount('');
         setError(null);
+        setSuccessAlert(true); // Show success alert
+    };
+
+    const handleAlertClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setSuccessAlert(false);
     };
 
     return (
         <div>
             <h3>Claim Item</h3>
             <form onSubmit={handleSubmit}>
-                <label>Select Item:</label>
-                <select onChange={handleTitleChange} value={selectedItem ? selectedItem.title : ''}>
-                    <option value="">Select an item</option>
-                    {items.map(item => (
-                        <option key={item._id} value={item.title}>{item.title}</option>
-                    ))}
-                </select>
+                <FormControl fullWidth>
+                    <InputLabel>Select Item</InputLabel>
+                    <Select
+                        value={selectedItem}
+                        onChange={handleTitleChange}
+                    >
+                        <MenuItem value="">Select an item</MenuItem>
+                        {items.map(item => (
+                            <MenuItem key={item._id} value={item.title}>{item.title}</MenuItem>
+                        ))}
+                    </Select>
+                </FormControl>
 
                 {selectedItem && (
                     <div>
-                        <p><strong>Max Amount</strong>: {selectedItem.maxAmount} | <strong>Current Amount</strong>: {selectedItem.currentAmount}
-                         | <strong>Claimed Amount</strong>: {selectedItem.claimedAmount}</p>
-                        <p>You can claim at most <strong>{calculateClaimableItems()}</strong> selected item</p>
+                        <p><strong>Max Amount</strong>: {calculateClaimableItems()} | <strong>Current Amount</strong>: {items.find(item => item.title === selectedItem)?.currentAmount}
+                         | <strong>Claimed Amount</strong>: {items.find(item => item.title === selectedItem)?.claimedAmount}</p>
+                        <p>Description: {items.find(item => item.title === selectedItem)?.description}</p>
+                        
+                        <p>You can claim at most <strong>{calculateClaimableItems()}</strong> item(s).</p>
 
-                        <label>Claim Amount:</label>
-                        <input 
-                            type="number"
-                            value={claimAmount}
-                            onChange={(e) => setClaimAmount(e.target.value)}
-                        />
+                        <FormControl fullWidth>
+                            <TextField
+                                label="Claim Amount"
+                                type="number"
+                                value={claimAmount}
+                                onChange={(e) => setClaimAmount(e.target.value)}
+                            />
+                        </FormControl>
 
-                        <button>Claim</button>
+                        <Button variant="contained" type="submit">Claim</Button>
                         {error && <div className="error">{error}</div>}
                     </div>
                 )}
             </form>
+            {/* Success Alert Snackbar */}
+            <Snackbar
+                open={successAlert}
+                autoHideDuration={6000}
+                onClose={handleAlertClose}
+                message="Item(s) claimed successfully"
+            />
         </div>
     );
 };

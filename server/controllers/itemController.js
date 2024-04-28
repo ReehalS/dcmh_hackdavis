@@ -1,6 +1,6 @@
 const Item = require('../models/itemModel');
 
-
+//create item
 const createItem = async (req, res) => {
     const {title, description, category, currentAmount, maxAmount, claimedAmount} = req.body
 
@@ -30,18 +30,22 @@ const createItem = async (req, res) => {
     }
   }
 
+//get all items
 const getItems = async (req, res) => {
     Item.find()
         .then((item) => res.json(item))
         .catch((err) => res.status(400).json("Error: " + err));
 }
 
+//get single item
 const getItem = async (req, res) => {
     Item.findbyId(req.params.id)
         .then((item) => res.json(item))
         .catch((err) => res.status(400).json("Error: ") +err); 
 }
 
+
+//update item by Admin
 const updateItem = async (req, res) => {
     const { title, description, category, currentAmount, maxAmount, claimedAmount } = req.body;
 
@@ -75,13 +79,14 @@ const updateItem = async (req, res) => {
     }
 };
 
-
+//delete
 const deleteItem = async (req, res) => {
     Item.findByIdAndDelete(req.params.id)
         .then(() => res.status(204).json())
         .catch((err) => res.status(400).json("Error: " + err));
 }
 
+//user claim item
 const claimItem = async (req, res) => {
   const { claimedAmount } = req.body;
 
@@ -95,9 +100,11 @@ const claimItem = async (req, res) => {
       if (!item) {
           return res.status(404).json({ error: 'Item not found' });
       }
+      // console.log(item.claimedAmount)
+      // console.log(claimedAmount)
 
       // Calculate future amount after claiming
-      const futureAmount = parseInt(item.currentAmount) + parseInt(claimedAmount);
+      const futureAmount = parseInt(item.currentAmount) + parseInt(claimedAmount) + parseInt(item.claimedAmount);
 
       if (futureAmount > item.maxAmount) {
           return res.status(400).json({ error: 'Claimed amount exceeds maximum amount' });
@@ -105,6 +112,7 @@ const claimItem = async (req, res) => {
 
       // Update claimedAmount
       const newClaimedAmount = parseInt(item.claimedAmount) + parseInt(claimedAmount);
+      //console.log(newClaimedAmount)
 
       // Update item
       const updatedItem = await Item.findByIdAndUpdate(req.params.id, { claimedAmount: newClaimedAmount }, { new: true });
