@@ -35,10 +35,9 @@ const Navbar = () => {
   return (
     <header>
       <div className="container">
-      <img src="../../public/davis-community-meals-and-housing.jpg" alt="DCMH Logo" />
+      <img src="https://daviscommunitymeals.org/wp-content/uploads/DCMH-Logo-Revised-e1611080333603.jpg" alt="DCMH Logo" />
         <Link to={user ? "/home" : "/about"}>
-        
-          <h1>DCMH</h1>
+          <h2>Davis Community Meals and Housing</h2>
         </Link>
         <nav className="navbar">
           {user && (
