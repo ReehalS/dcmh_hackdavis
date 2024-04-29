@@ -1,16 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { useAuthContext } from '../hooks/useAuthContext';
-import { FormControl, InputLabel, MenuItem, Select, TextField, Button, Snackbar } from '@mui/material';
+import { useLocation } from 'react-router-dom'; // Import useLocation hook
+import { FormControl, InputLabel, MenuItem, Select, TextField, Button } from '@mui/material';
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
 
 const UserClaimItem = () => {
     const { user } = useAuthContext();
-
     const [items, setItems] = useState([]); // State to hold fetched items
     const [selectedItem, setSelectedItem] = useState(''); // State to hold selected item
     const [claimAmount, setClaimAmount] = useState(''); // State to hold the claimed amount
     const [error, setError] = useState(null);
-    const [successAlert, setSuccessAlert] = useState(false);
-    const [donatedItems, setDonatedItems] = useState(0); // State to hold number of donated items
+    const [showAlert, setShowAlert] = useState(false);
+    const location = useLocation(); // Use useLocation hook to access the location
+
+    // Access the state passed from the Link
+    useEffect(() => {
+        //console.log(location.state);
+        console.log(location.state?.item.title);
+        setSelectedItem(location.state?.title);
+        
+    }, [location.state]);
 
     // Fetch items when component mounts
     useEffect(() => {
@@ -22,19 +32,10 @@ const UserClaimItem = () => {
         fetchItems();
     }, []);
 
-    // Fetch number of donated items
-    useEffect(() => {
-        const fetchDonatedItems = async () => {
-            const response = await fetch('http://localhost:4000/api/donatedItems'); // Endpoint to fetch number of donated items
-            const data = await response.json();
-            setDonatedItems(data.count);
-        };
-        fetchDonatedItems();
-    }, [successAlert]); // Fetch again when a new item is successfully claimed
-
     // Function to handle selection of an item
     const handleTitleChange = (event) => {
         setSelectedItem(event.target.value);
+        setShowAlert(false);
     };
 
     // Function to calculate how many items the user can claim
@@ -66,6 +67,7 @@ const UserClaimItem = () => {
         const selectedItemObj = items.find(item => item.title === selectedItem);
         if (!selectedItemObj) {
             setError('Please select an item');
+            setShowAlert(false);
             return;
         }
 
@@ -87,22 +89,24 @@ const UserClaimItem = () => {
 
         if (!response.ok) {
             setError(json.error);
+            setShowAlert(false);
             return;
+        }
+        if(response.ok) {
+            setShowAlert(true);
         }
 
         // Reset form fields and errors after successful submission
         setSelectedItem('');
         setClaimAmount('');
         setError(null);
-        setSuccessAlert(true); // Show success alert
     };
 
     const handleAlertClose = (event, reason) => {
         if (reason === 'clickaway') {
-            return;
+            setShowAlert(false);
         }
 
-        setSuccessAlert(false);
     };
 
     return (
@@ -144,13 +148,13 @@ const UserClaimItem = () => {
                     </div>
                 )}
             </form>
-            {/* Success Alert Snackbar */}
-            <Snackbar
-                open={successAlert}
-                autoHideDuration={6000}
-                onClose={handleAlertClose}
-                message="Item(s) claimed successfully"
-            />
+            {error && <div className="user-claim-item-error">{error}</div>}
+            {showAlert && (
+                <Alert severity="success" onClose={() => setShowAlert(false)}>
+                    <AlertTitle>Success</AlertTitle>
+                    Your claim has been submitted successfully!
+                </Alert>
+            )}
         </div>
     );
 };

@@ -4,11 +4,12 @@ import Login from './pages/login';
 import Signup from './pages/signup';
 import ItemForm from './components/addItem';
 import Home from './pages/home';
+import Admin from './pages/admin';
 import ModifyInventory from './components/modifyInventory';
 import {BrowserRouter,Routes,Route,Navigate} from 'react-router-dom';
-
 import { useAuthContext } from './hooks/useAuthContext';
 import UserClaimItem from './components/userClaimItem';
+import AdminItemTable from './components/adminItemTable';
 
 
 function App() {
@@ -20,7 +21,10 @@ function App() {
       <Navbar />
         <div className="pages">
           <Routes>
-            
+            <Route
+              path="/"
+              element={<Navigate to="/home"/>}
+              />
             <Route
               path="/home"
               element={user ? <Home/> : <Navigate to="/login"/>}
@@ -49,7 +53,14 @@ function App() {
               path="/userClaimItem"
               element={user ? <UserClaimItem/> : <Navigate to="/login"/>}
               />
-
+            <Route
+              path="/admin"
+              element={(user && user.isAdmin) ? <Admin/> : <Admin/>}
+              />
+              <Route
+              path="/adminItemTable"
+              element={(user && user.isAdmin) ? <AdminItemTable/> : <Admin/>}
+              />
           </Routes>
         </div>
       </BrowserRouter>

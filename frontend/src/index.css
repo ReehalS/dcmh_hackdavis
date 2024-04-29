@@ -351,3 +351,116 @@ form.signup, form.login {
 .dropdown.active:before {
   transform: translateY(-50%) rotate(-135deg);
 }
+
+/* Dropdown styles */
+.dropdown-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Adjust margin as needed */
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+
+
+.dropbtn {
+  background-color: white;
+  color: black ;
+  font-size: 30px;
+  align-items: center;
+  font-family: "Poppins";
+  font-weight: bold;
+  padding: 10px;
+  border: black;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content .item-bar {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown-content .item-bar.light-green-bg {
+  background-color: rgb(180, 235, 180);
+}
+
+.dropdown-content .item-bar.dark-green-bg {
+  background-color: rgb(61, 113, 61);
+}
+
+.dropdown-content .item-bar:nth-child(odd) {
+  background-color: rgb(180, 235, 180);
+}
+
+.exclamation-icons {
+  font-size: 20px;
+}
+
+.donate-btn {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+/* Dropdown hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Dropdown arrow */
+.dropdown:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+/* Rotate arrow when dropdown is active */
+.dropdown.active:before {
+  transform: translateY(-50%) rotate(-135deg);
+}
+
+
+/* UserClaimItem.css */
+
+/* UserClaimItem.css */
+
+.user-claim-item-container {
+  /* Add your container styles here */
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.user-claim-item-form {
+
+  margin-top: 20px;
+}
+
+.user-claim-item-error {
+  color: red;
+  margin-top: 10px;
+}
+
+
+.datagrid-container {
+  max-width: 1000px; 
+}
