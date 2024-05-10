@@ -17,9 +17,9 @@ We learned that delegating work, communicating, and staying organized is importa
 Next, we would like to work on adding an about page so donors know who they are donating to, making our page easier to understand for first-time users, and adapting our app to mobile devices. 
 
 
+To run locally
 
-
-# Run Frontend
+### Run Frontend
 
 `cd frontend` 
 
@@ -27,7 +27,7 @@ Next, we would like to work on adding an about page so donors know who they are 
 
 `npm start`
 
-# Run Backend
+### Run Backend
 
 `cd server`
 
